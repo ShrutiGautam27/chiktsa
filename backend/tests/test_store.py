@@ -1,5 +1,5 @@
 """Contract tests for the Store abstraction (MemoryStore; FirestoreStore shares the contract)."""
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from app.db import Filter
 from app.db.memory import MemoryStore
@@ -21,10 +21,10 @@ def test_ordering_limit_and_persistence(tmp_path):
     p = tmp_path / "store.json"
     s = MemoryStore(str(p))
     for i in range(5):
-        s.set(f"c/d{i}", {"i": i, "at": datetime(2026, 1, i + 1, tzinfo=timezone.utc)})
+        s.set(f"c/d{i}", {"i": i, "at": datetime(2026, 1, i + 1, tzinfo=UTC)})
     assert [d.data["i"] for d in s.query("c", order_by="at", descending=True, limit=2)] == [4, 3]
     s2 = MemoryStore(str(p))
-    assert s2.get("c/d3").data["at"] == datetime(2026, 1, 4, tzinfo=timezone.utc)
+    assert s2.get("c/d3").data["at"] == datetime(2026, 1, 4, tzinfo=UTC)
 
 
 def test_returned_data_is_a_copy():

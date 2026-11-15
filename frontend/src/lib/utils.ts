@@ -40,11 +40,20 @@ export function greeting(date = new Date()) {
   return h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
 }
 
-export const TIMEZONES: string[] =
-  typeof Intl.supportedValuesOf === "function"
+// Browsers still report some zones by legacy CLDR names; store and show the current IANA names.
+const LEGACY_ZONES: Record<string, string> = {
+  "Asia/Calcutta": "Asia/Kolkata", "Asia/Katmandu": "Asia/Kathmandu", "Asia/Rangoon": "Asia/Yangon",
+  "Asia/Saigon": "Asia/Ho_Chi_Minh", "Europe/Kiev": "Europe/Kyiv",
+};
+export const canonicalTimeZone = (tz: string) => LEGACY_ZONES[tz] ?? tz;
+
+export const TIMEZONES: string[] = [...new Set(
+  (typeof Intl.supportedValuesOf === "function"
     ? Intl.supportedValuesOf("timeZone")
-    : ["Asia/Kolkata", "Europe/London", "America/New_York", "Asia/Dubai", "Asia/Singapore", "Australia/Sydney"];
+    : ["Asia/Kolkata", "Europe/London", "America/New_York", "Asia/Dubai", "Asia/Singapore", "Australia/Sydney"]
+  ).map(canonicalTimeZone),
+)].sort();
 
 export function browserTimeZone() {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Kolkata";
+  return canonicalTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Kolkata");
 }

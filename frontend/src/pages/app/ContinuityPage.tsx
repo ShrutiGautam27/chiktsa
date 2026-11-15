@@ -172,15 +172,15 @@ function Simulator({ hid }: { hid: string }) {
           {!r ? <p className="text-sm text-ink-500">Choose a scenario and run it to see which responsibilities would be affected.</p> : (
             <div className="space-y-4 text-sm">
               <p className="rounded-xl bg-brand-50 p-3 font-medium text-brand-800">{r.summary}</p>
-              {r.affectedResponsibilities?.length > 0 && <div><h4 className="mb-1 font-semibold">Responsibilities affected</h4><ul className="space-y-1">{r.affectedResponsibilities.map((i: any) => (
-                <li key={i.id} className="rounded-lg border border-line p-2">{i.title} — backups: {i.backups.length ? i.backups.map((b: any) => b.displayName).join(", ") : <span className="text-danger-600">none available</span>}</li>))}</ul></div>}
-              {r.doseConfirmationDuties?.length > 0 && <div><h4 className="mb-1 font-semibold">Dose confirmations</h4><ul className="space-y-1">{r.doseConfirmationDuties.map((d: any) => (
+              {!!r.affectedResponsibilities?.length && <div><h4 className="mb-1 font-semibold">Responsibilities affected</h4><ul className="space-y-1">{r.affectedResponsibilities.map((i) => (
+                <li key={i.id} className="rounded-lg border border-line p-2">{i.title} — backups: {i.backups.length ? i.backups.map((b) => b.displayName).join(", ") : <span className="text-danger-600">none available</span>}</li>))}</ul></div>}
+              {!!r.doseConfirmationDuties?.length && <div><h4 className="mb-1 font-semibold">Dose confirmations</h4><ul className="space-y-1">{r.doseConfirmationDuties.map((d) => (
                 <li key={d.medicationId} className="rounded-lg border border-line p-2">{d.seniorName}: {d.name} — {d.dosesToConfirm} dose(s) need someone to record them</li>))}</ul></div>}
-              {r.effects?.length > 0 && <ul className="space-y-1">{r.effects.map((e: any, i: number) => <li key={i} className="rounded-lg border border-line p-2">{e.detail}</li>)}</ul>}
-              {r.refill && <p>Order by <strong>{r.orderBy}</strong>. {r.appointmentsBeforeDepletion?.length ? `Upcoming visits before then: ${r.appointmentsBeforeDepletion.map((a: any) => a.title).join(", ")} — a chance to ask for a new prescription.` : ""}</p>}
-              {r.dosesToRecordLater && <>
+              {!!r.effects?.length && <ul className="space-y-1">{r.effects.map((e, i) => <li key={i} className="rounded-lg border border-line p-2">{e.detail}</li>)}</ul>}
+              {!!r.refill && <p>Order by <strong>{r.orderBy}</strong>. {r.appointmentsBeforeDepletion?.length ? `Upcoming visits before then: ${r.appointmentsBeforeDepletion.map((a) => a.title).join(", ")} — a chance to ask for a new prescription.` : ""}</p>}
+              {r.dosesToRecordLater && r.tasksDue && <>
                 <p>{r.dosesToRecordLater.length} dose(s) and {r.tasksDue.length} task(s) would need recording once back online.</p>
-                <ul className="list-disc pl-5 text-ink-700">{r.recommendations.map((x: string) => <li key={x}>{x}</li>)}</ul>
+                <ul className="list-disc pl-5 text-ink-700">{(r.recommendations ?? []).map((x) => <li key={x}>{x}</li>)}</ul>
                 <p className="text-xs text-ink-500">{r.limitations}</p>
               </>}
             </div>

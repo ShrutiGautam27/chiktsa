@@ -1,15 +1,13 @@
-"""Phase 2 routes: care records + the three intelligence engines. Thin — logic lives in services."""
+"""Routes: care records + the three intelligence engines. Thin — logic lives in services."""
 from datetime import date, timedelta
 
 from fastapi import APIRouter, Depends, Query, Response
 
 from ...core.auth import CurrentUser, get_current_user
 from ...core.errors import ValidationFailed
-from ...core.timeutil import now
 from ...db import Store, get_store
 from ...schemas import care as S
-from ...services import (appointments, consent, continuity, coordination, handovers, jobs, medications,
-                         notifications, tasks)
+from ...services import appointments, consent, continuity, coordination, handovers, jobs, medications, notifications, tasks
 
 router = APIRouter(tags=["care"])
 Actor = Depends(get_current_user)
@@ -282,7 +280,7 @@ def register_device(body: S.DeviceRegistration, actor: CurrentUser = Actor, stor
     return notifications.register_device(store, actor.uid, body.token)
 
 
-# ============================================================ PHASE 3 · Automation
+# ============================================================ Automation
 @router.get("/households/{hid}/notification-rules")
 def get_rules(hid: str, actor: CurrentUser = Actor, store: Store = DB):
     from ...core.rbac import authorize

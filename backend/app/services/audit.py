@@ -1,6 +1,6 @@
 """Audit trail. Every mutation of household data records who/what/when and a field-level diff.
 
-The diff is the data source for the Care Change Detective (Phase 3).
+The diff is the data source for the Care Change Detective.
 """
 import time
 from typing import Any

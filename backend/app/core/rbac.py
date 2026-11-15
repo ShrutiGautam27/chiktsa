@@ -10,7 +10,7 @@ permission receive Forbidden. Platform administrators get NO implicit access to 
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from ..db import Store
@@ -18,7 +18,7 @@ from .errors import Forbidden, NotFound
 from .timeutil import aware, now
 
 
-class Role(str, Enum):
+class Role(StrEnum):
     HOUSEHOLD_OWNER = "household_owner"
     FAMILY_ADMIN = "family_admin"
     FAMILY_MEMBER = "family_member"
@@ -28,7 +28,7 @@ class Role(str, Enum):
     SENIOR = "senior"
 
 
-class P(str, Enum):
+class P(StrEnum):
     HOUSEHOLD_READ = "household.read"
     HOUSEHOLD_MANAGE = "household.manage"
     MEMBERS_READ = "members.read"
@@ -97,7 +97,7 @@ class Membership:
     raw: dict[str, Any]
 
     @classmethod
-    def from_doc(cls, data: dict[str, Any]) -> "Membership":
+    def from_doc(cls, data: dict[str, Any]) -> Membership:
         return cls(
             uid=data["uid"],
             household_id=data["householdId"],

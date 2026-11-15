@@ -1,5 +1,5 @@
 """ENGINE 2 — Medication Safety Intelligence."""
-from datetime import timedelta
+from datetime import UTC, timedelta
 
 import pytest
 
@@ -202,10 +202,10 @@ def test_responsible_person_must_have_access(fam, make_actor):
 
 def test_today_uses_seniors_local_date(fam, clock):
     """At 23:30 UTC on Sunday it is already Monday 05:00 in India — 'today' must be the senior's Monday."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     med = add_med(fam)
     verify(fam, med["id"])
-    clock(datetime(2026, 11, 15, 23, 30, tzinfo=timezone.utc))
+    clock(datetime(2026, 11, 15, 23, 30, tzinfo=UTC))
     doses = fam["owner"].get(f"/api/households/{fam['hid']}/seniors/{fam['g']}/doses").json()
     assert [d["scheduledFor"][:16] for d in doses] == ["2026-11-16T02:30", "2026-11-16T14:30"]

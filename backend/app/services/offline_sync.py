@@ -1,4 +1,4 @@
-"""Phase 5: Internet Independence Mode — server side of offline sync (Scenario G).
+"""Internet Independence Mode — server side of offline sync (Scenario G).
 
 The app queues supported changes while offline and replays them here when connectivity returns.
 Guarantees:

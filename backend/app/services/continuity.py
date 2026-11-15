@@ -2,7 +2,7 @@
 
 Deterministic, explainable rules over real records. Gaps are about RESPONSIBILITY (who is doing
 what), never about health: missing data is not treated as an emergency and nothing is diagnosed.
-The Phase 4 AI layer will only phrase/summarise these rule outputs, not replace them.
+The AI layer will only phrase/summarise these rule outputs, not replace them.
 """
 from __future__ import annotations
 
@@ -340,5 +340,5 @@ def _sim_offline(store: Store, acc: Access, p: dict) -> dict:
                 "Note dose times on paper and record them in Chiktsa when back online.",
                 "In-app reminders can't be delivered while offline; agree a phone-call fallback with the family.",
             ],
-            "limitations": "Offline caching and queued sync (Internet Independence Mode) are planned for Phase 5.",
+            "limitations": "Changes made offline are kept on the device and synced when the connection returns.",
             "summary": f"{len(doses)} dose(s), {len(appts)} appointment(s) and {len(tasks)} task(s) fall in this window."}

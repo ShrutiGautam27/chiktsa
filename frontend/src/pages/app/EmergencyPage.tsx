@@ -9,7 +9,7 @@ import { Badge, Skeleton, Switch } from "@/components/ui/misc";
 import { Field } from "@/components/ui/field";
 import { Input, NativeSelect, Textarea } from "@/components/ui/input";
 import { ErrorState, Logo, PageHeader } from "@/components/common";
-import { useEmergency, useEmergencyAction, type EmergencyCard } from "@/hooks/phase5-queries";
+import { useEmergency, useEmergencyAction, type EmergencyCard } from "@/hooks/wellbeing-queries";
 import { useCareContext } from "@/hooks/useCareContext";
 import { api, errorMessage } from "@/lib/api";
 import type { Senior } from "@/lib/types";

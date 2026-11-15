@@ -1,4 +1,4 @@
-"""Phase 5: Professional care organisations serving many households.
+"""Professional care organisations serving many households.
 
 Model:
   organisations/{oid}                  name, connect-code hash
@@ -21,9 +21,9 @@ from ..core.rbac import P, Role, authorize
 from ..core.timeutil import now
 from ..db import Filter, Store
 from . import audit, households, notifications
+from .access import Access
 from .continuity import detect_gaps
 from .coordination import _load_by_member
-from .access import Access
 from .ids import new_id
 from .members import validate_scope
 from .users import find_by_email
@@ -169,7 +169,7 @@ def dashboard(store: Store, actor: CurrentUser, oid: str) -> dict:
         hid = link.id
         try:
             acc = Access(store, actor.uid, hid)
-        except Exception:  # org admin access removed by the household
+        except (Forbidden, NotFound):  # org admin access removed by the household
             continue
         gaps = detect_gaps(store, actor, hid)["counts"]
         load, tasks_ = _load_by_member(store, acc, 30)

@@ -112,8 +112,9 @@ def test_profile_update_and_validation(make_actor):
 
 
 def test_production_refuses_insecure_config():
-    from app.config import Settings
     import pytest
+
+    from app.config import Settings
 
     with pytest.raises(RuntimeError):
         Settings(environment="production", data_store="firestore").validate_for_production()

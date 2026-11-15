@@ -1,4 +1,4 @@
-"""Phase 5: Care Reports & Analytics, CSV export and calendar (.ics) export.
+"""Care Reports & Analytics, CSV export and calendar (.ics) export.
 
 Analytics describe coordination (were responsibilities covered, how fast reminders were resolved),
 not health outcomes. Every figure is computed from records the caller is authorised to see.

@@ -48,7 +48,7 @@ const DocumentsPage = named(() => import("@/pages/app/DocumentsPage"), "Document
 const emerg = () => import("@/pages/app/EmergencyPage");
 const EmergencyPage = named(emerg, "EmergencyPage");
 const PublicEmergencyPage = named(emerg, "PublicEmergencyPage");
-const p5 = () => import("@/pages/app/Phase5Pages");
+const p5 = () => import("@/pages/app/WellbeingPages");
 const ReportsPage = named(p5, "ReportsPage");
 const OrganisationPage = named(p5, "OrganisationPage");
 const VoicePage = named(p5, "VoicePage");

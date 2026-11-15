@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { CalendarDays, CalendarPlus, ClipboardCheck, Clock, HandHelping, MapPin, MoreHorizontal, UserCheck, UserX } from "lucide-react";
 import { VisitPrepDialog } from "@/features/ai/components";
-import { CalendarButtons } from "@/features/phase5/components";
+import { CalendarButtons } from "@/features/wellbeing/components";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge, Skeleton } from "@/components/ui/misc";

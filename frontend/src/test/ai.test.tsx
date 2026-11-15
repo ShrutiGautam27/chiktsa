@@ -23,7 +23,7 @@ describe("AI transparency", () => {
 describe("Dialect-to-Care Task Converter", () => {
   it("proposes tasks and saves only the ones the user confirms", async () => {
     configureApi({ getToken: async () => "t", refresh: async () => null, onUnauthenticated: () => {} });
-    const calls: { url: string; body: any }[] = [];
+    const calls: { url: string; body: unknown }[] = [];
     vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
       const url = String(input);
       calls.push({ url, body: init?.body ? JSON.parse(String(init.body)) : null });

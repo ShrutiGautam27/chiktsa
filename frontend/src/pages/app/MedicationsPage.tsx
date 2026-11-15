@@ -42,7 +42,7 @@ function AdherenceCard({ hid, sid }: { hid: string; sid: string }) {
                   <CartesianGrid vertical={false} stroke="var(--color-line)" />
                   <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fill: "var(--color-ink-500)", fontSize: 12 }} />
                   <YAxis allowDecimals={false} tickLine={false} axisLine={false} width={24} tick={{ fill: "var(--color-ink-500)", fontSize: 12 }} />
-                  <Tooltip contentStyle={{ background: "var(--color-surface)", border: "1px solid var(--color-line)", borderRadius: 12 }} />
+                  <Tooltip contentStyle={{ background: "var(--color-surface)", border: "1px solid var(--color-line)", borderRadius: 12 }} labelStyle={{ color: "var(--color-ink-900)" }} itemStyle={{ color: "var(--color-ink-900)" }} />
                   <Legend iconType="circle" wrapperStyle={{ fontSize: 12 }} />
                   <Bar dataKey="taken" name="Taken" stackId="a" fill="var(--color-brand-500)" radius={[0, 0, 0, 0]} />
                   <Bar dataKey="skipped" name="Skipped" stackId="a" fill="var(--color-sage-400)" />

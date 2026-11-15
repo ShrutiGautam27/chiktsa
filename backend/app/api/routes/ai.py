@@ -1,4 +1,4 @@
-"""Phase 4 routes: AI workflows, care notes and the secure document vault."""
+"""Routes: AI workflows, care notes and the secure document vault."""
 import re
 from typing import Annotated, Literal
 

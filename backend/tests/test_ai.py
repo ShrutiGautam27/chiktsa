@@ -3,8 +3,8 @@ from datetime import timedelta
 
 import pytest
 
-from app.ai.llm import AIUnavailable, GeminiClient, set_llm
 from app.ai import services as ai
+from app.ai.llm import AIUnavailable, GeminiClient, set_llm
 from app.config import get_settings
 from app.core.ratelimit import limiter
 from app.services.records import LocalStorage, set_storage
@@ -198,7 +198,7 @@ def test_document_upload_validation_and_access(fam, make_actor):
     fam["owner"].put(S(fam, p=f"/consents/{fam['anita'].uid}"), json={"categories": ["medications"]})
     assert fam["anita"].get(S(fam, p="/documents")).status_code == 403
     logs = fam["owner"].get(f"/api/households/{fam['hid']}/audit?targetType=document").json()
-    assert {"document.upload", "document.access"} <= {l["action"] for l in logs}
+    assert {"document.upload", "document.access"} <= {entry["action"] for entry in logs}
     assert fam["owner"].delete(S(fam, p=f"/documents/{did}")).status_code == 204
     assert fam["owner"].get(S(fam, p="/documents")).json() == []
 

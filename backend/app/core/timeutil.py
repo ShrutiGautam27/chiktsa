@@ -2,14 +2,14 @@
 
 `set_clock()` lets tests freeze time; production never calls it.
 """
-from datetime import date, datetime, time, timedelta, timezone
+from datetime import UTC, date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
 _frozen: datetime | None = None
 
 
 def now() -> datetime:
-    return _frozen if _frozen is not None else datetime.now(timezone.utc)
+    return _frozen if _frozen is not None else datetime.now(UTC)
 
 
 def set_clock(dt: datetime | None) -> None:
@@ -20,12 +20,12 @@ def set_clock(dt: datetime | None) -> None:
 def aware(dt: datetime | None) -> datetime | None:
     if dt is None:
         return None
-    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+    return dt if dt.tzinfo else dt.replace(tzinfo=UTC)
 
 
 def local_to_utc(day: date, hhmm: str, tz: str) -> datetime:
     h, m = (int(x) for x in hhmm.split(":"))
-    return datetime.combine(day, time(h, m), tzinfo=ZoneInfo(tz)).astimezone(timezone.utc)
+    return datetime.combine(day, time(h, m), tzinfo=ZoneInfo(tz)).astimezone(UTC)
 
 
 def local_date(dt: datetime, tz: str) -> date:

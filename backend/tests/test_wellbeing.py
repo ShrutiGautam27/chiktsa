@@ -4,7 +4,6 @@ from datetime import timedelta
 
 import pytest
 
-from app.core.timeutil import now
 from tests.conftest import FROZEN
 from tests.test_medications import MED
 
@@ -86,7 +85,7 @@ def test_emergency_share_link_is_limited_logged_and_revocable(fam, client):
     assert card["contacts"][0]["name"] == "Priya Sharma" and "notes" not in card
     em = fam["owner"].get(S(fam, p="/emergency")).json()
     assert em["shares"][0]["views"] == 1
-    assert any(l["action"] == "emergency.view" for l in fam["owner"].get(f"/api/households/{fam['hid']}/audit?targetType=emergency").json())
+    assert any(entry["action"] == "emergency.view" for entry in fam["owner"].get(f"/api/households/{fam['hid']}/audit?targetType=emergency").json())
     fam["owner"].delete(S(fam, p=f"/emergency/shares/{em['shares'][0]['id']}"))
     assert client.get(f"/api/public/emergency/{tok}").status_code == 404
     assert client.get("/api/public/emergency/not-a-real-token").status_code == 404

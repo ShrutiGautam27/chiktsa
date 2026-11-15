@@ -8,17 +8,17 @@ import { Badge, Skeleton } from "@/components/ui/misc";
 import { Field } from "@/components/ui/field";
 import { Input, NativeSelect } from "@/components/ui/input";
 import { EmptyState, ErrorState, PageHeader, StatCard } from "@/components/common";
-import { downloadBlob, useOrgAction, useOrgDashboard, useOrgs, useReport, type Org } from "@/hooks/phase5-queries";
+import { downloadBlob, useOrgAction, useOrgDashboard, useOrgs, useReport, type Org } from "@/hooks/wellbeing-queries";
 import { useCareContext } from "@/hooks/useCareContext";
 import { useSeniors } from "@/hooks/queries";
 import { ApiError, errorMessage } from "@/lib/api";
 import { NeedsSenior, ProfilePicker } from "@/features/care/shared";
 import { ScopePicker } from "@/features/ScopePicker";
-import { VoiceCompanion } from "@/features/phase5/components";
+import { VoiceCompanion } from "@/features/wellbeing/components";
 import type { SeniorScope } from "@/lib/types";
 
 const axis = { tickLine: false, axisLine: false, tick: { fill: "var(--color-ink-500)", fontSize: 11 } } as const;
-const tip = { contentStyle: { background: "var(--color-surface)", border: "1px solid var(--color-line)", borderRadius: 12 } };
+const tip = { contentStyle: { background: "var(--color-surface)", border: "1px solid var(--color-line)", borderRadius: 12 }, labelStyle: { color: "var(--color-ink-900)" }, itemStyle: { color: "var(--color-ink-900)" } };
 
 // ------------------------------------------------------------------ Reports
 export function ReportsPage() {
@@ -107,7 +107,7 @@ function OrgView({ org }: { org: Org }) {
       </div>}
       <Card><CardHeader><CardTitle>Client households</CardTitle></CardHeader>
         {dash.isLoading ? <CardContent><Skeleton className="h-24" /></CardContent> : !dash.data?.households.length ? <CardContent className="text-sm text-ink-500">No connected households yet.</CardContent> : (
-          <div className="overflow-x-auto"><table className="w-full min-w-[520px] text-sm"><thead><tr className="border-y border-line text-left text-xs uppercase text-ink-500">{["Household", "Profiles", "Open tasks", "Unassigned", "Gaps"].map((h) => <th key={h} className="px-4 py-2 font-medium">{h}</th>)}</tr></thead>
+          <div className="overflow-x-auto focus-visible:outline-2 focus-visible:outline-brand-600" tabIndex={0} role="region" aria-label="Scrollable table"><table className="w-full min-w-[520px] text-sm"><thead><tr className="border-y border-line text-left text-xs uppercase text-ink-500">{["Household", "Profiles", "Open tasks", "Unassigned", "Gaps"].map((h) => <th key={h} className="px-4 py-2 font-medium">{h}</th>)}</tr></thead>
             <tbody>{dash.data.households.map((h) => <tr key={h.householdId} className="border-b border-line last:border-0"><td className="px-4 py-3 font-medium">{h.householdName}</td><td className="px-4 py-3">{h.profiles}</td><td className="px-4 py-3">{h.openTasks}</td><td className="px-4 py-3">{h.unassignedTasks}</td>
               <td className="px-4 py-3">{h.gaps.high > 0 ? <Badge tone="danger">{h.gaps.high} urgent</Badge> : <Badge tone="brand">{h.gaps.medium + h.gaps.low} minor</Badge>}</td></tr>)}</tbody></table></div>)}
       </Card>

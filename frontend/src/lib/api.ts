@@ -3,6 +3,9 @@
  * refreshes once on `token_expired`. Errors are thrown as ApiError — never swallowed, so the UI
  * can never show a fake success for a failed call.
  */
+/** Error envelope returned by the API: `{ error: { code, message, fields? } }`. */
+interface ApiErrorBody { code?: string; message?: string; fields?: { field: string; message: string }[] }
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -58,7 +61,7 @@ export async function request<T>(method: string, path: string, body?: unknown, r
   const data = await parse(res);
   if (res.ok) return data as T;
 
-  const err = (data && typeof data === "object" && "error" in data ? (data as any).error : null) ?? {};
+  const err = (data && typeof data === "object" && "error" in data ? (data as { error?: ApiErrorBody }).error : null) ?? {};
   if (res.status === 401 && retry && tokenSource && err.code === "token_expired") {
     const fresh = await tokenSource.refresh();
     if (fresh) return request<T>(method, path, body, false);
@@ -73,7 +76,7 @@ async function blob(path: string): Promise<Blob> {
   const res = await fetch(BASE + path, { headers: token ? { Authorization: `Bearer ${token}` } : {}, credentials: "same-origin" });
   if (!res.ok) {
     const data = await parse(res);
-    const err = (data && typeof data === "object" && "error" in data ? (data as any).error : null) ?? {};
+    const err = (data && typeof data === "object" && "error" in data ? (data as { error?: ApiErrorBody }).error : null) ?? {};
     throw new ApiError(res.status, err.code ?? "error", err.message ?? `Download failed (${res.status})`);
   }
   return res.blob();
@@ -90,7 +93,7 @@ async function upload<T>(path: string, form: FormData): Promise<T> {
   }
   const data = await parse(res);
   if (res.ok) return data as T;
-  const err = (data && typeof data === "object" && "error" in data ? (data as any).error : null) ?? {};
+  const err = (data && typeof data === "object" && "error" in data ? (data as { error?: ApiErrorBody }).error : null) ?? {};
   throw new ApiError(res.status, err.code ?? "error", err.message ?? `Upload failed (${res.status})`, err.fields);
 }
 

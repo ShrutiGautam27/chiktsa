@@ -1,4 +1,4 @@
-"""Phase 5: Voice-First Care Companion — intent handling for spoken requests (English & Hindi).
+"""Voice-First Care Companion — intent handling for spoken requests (English & Hindi).
 
 Speech-to-text and text-to-speech run in the browser (Web Speech API) today; Google Cloud
 Speech-to-Text / Text-to-Speech are pending credentials. This service turns a transcript into a

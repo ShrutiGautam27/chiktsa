@@ -1,4 +1,4 @@
-"""Phase 5 routes: preferences, wellness, emergency snapshot, offline sync, voice, reports, calendar, organisations."""
+"""Wellbeing routes: preferences, wellness, emergency snapshot, offline sync, voice, reports, calendar, organisations."""
 from typing import Annotated, Any, Literal
 
 from fastapi import APIRouter, Depends, Query, Response
@@ -9,7 +9,7 @@ from ...db import Store, get_store
 from ...schemas.common import APIModel
 from ...services import offline_sync, orgs, reports, voice, wellbeing
 
-router = APIRouter(tags=["phase5"])
+router = APIRouter(tags=["wellbeing"])
 Actor = Depends(get_current_user)
 DB = Depends(get_store)
 SEN = "/households/{hid}/seniors/{sid}"

@@ -1,4 +1,4 @@
-"""Phase 5: Personal Wishes & Care Preferences, Wellness Check-ins, Emergency Care Snapshot.
+"""Personal Wishes & Care Preferences, Wellness Check-ins, Emergency Care Snapshot.
 
 * Preferences and wishes are the senior's own words; the senior (or an administrator) edits them.
 * Wellness check-ins are VOLUNTARY self-reports. They are never interpreted clinically; the only

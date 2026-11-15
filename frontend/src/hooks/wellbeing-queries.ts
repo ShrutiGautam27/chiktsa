@@ -1,4 +1,4 @@
-/** Phase 5 hooks: wishes, wellness, emergency snapshot, voice, reports, calendar, organisations. */
+/** Wellbeing hooks: wishes, wellness, emergency snapshot, voice, reports, calendar, organisations. */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { useInvalidateCare } from "./care-queries";

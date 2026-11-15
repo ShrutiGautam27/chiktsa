@@ -12,7 +12,7 @@ import { ErrorState } from "@/components/common";
 import { useRecordDose } from "@/hooks/care-queries";
 import { useMe } from "@/hooks/queries";
 import { useCareContext } from "@/hooks/useCareContext";
-import { downloadBlob, useCheckIn, useHouseholdOrg, usePreferences, useSavePreferences, useVoice, useWellness, type Preferences, type VoiceReply } from "@/hooks/phase5-queries";
+import { downloadBlob, useCheckIn, useHouseholdOrg, usePreferences, useSavePreferences, useVoice, useWellness, type Preferences, type VoiceReply } from "@/hooks/wellbeing-queries";
 import { ApiError, errorMessage } from "@/lib/api";
 import { enqueue, isOfflineError } from "@/lib/offline";
 import type { Appointment } from "@/lib/care-types";
@@ -45,7 +45,10 @@ export function speak(text: string, lang: "en" | "hi", rate = 1) {
 }
 
 // ------------------------------------------------------------------ Voice companion
-type Rec = { start: () => void; stop: () => void; lang: string; interimResults: boolean; onresult: ((e: any) => void) | null; onend: (() => void) | null; onerror: ((e: any) => void) | null };
+/** Minimal Web Speech API surface (not yet in TypeScript's DOM types). */
+type SpeechResultEvent = { results: ArrayLike<ArrayLike<{ transcript: string }>> };
+type Rec = { start: () => void; stop: () => void; lang: string; interimResults: boolean; onresult: ((e: SpeechResultEvent) => void) | null; onend: (() => void) | null; onerror: ((e: unknown) => void) | null };
+type SpeechWindow = Window & { SpeechRecognition?: new () => Rec; webkitSpeechRecognition?: new () => Rec };
 
 export function VoiceCompanion({ hid, sid, large, autoSpeak = true }: { hid: string; sid: string; large?: boolean; autoSpeak?: boolean }) {
   const { t, lang: uiLang } = useSeniorText();
@@ -58,7 +61,7 @@ export function VoiceCompanion({ hid, sid, large, autoSpeak = true }: { hid: str
   const [listening, setListening] = useState(false);
   const [reply, setReply] = useState<VoiceReply | null>(null);
   const recRef = useRef<Rec | null>(null);
-  const SR = typeof window !== "undefined" ? ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition) : null;
+  const SR = typeof window !== "undefined" ? ((window as SpeechWindow).SpeechRecognition ?? (window as SpeechWindow).webkitSpeechRecognition ?? null) : null;
   const rate = me.data?.user.accessibility.voiceRate ?? 1;
 
   const ask = (q: string) => {
@@ -74,7 +77,7 @@ export function VoiceCompanion({ hid, sid, large, autoSpeak = true }: { hid: str
     const rec: Rec = new SR();
     rec.lang = lang === "hi" ? "hi-IN" : "en-IN";
     rec.interimResults = false;
-    rec.onresult = (e: any) => { const said = e.results[0][0].transcript as string; setText(said); ask(said); };
+    rec.onresult = (e) => { const said = e.results[0][0].transcript; setText(said); ask(said); };
     rec.onend = () => setListening(false);
     rec.onerror = () => { setListening(false); toast.error("I didn't catch that — please try again or type."); };
     recRef.current = rec;
@@ -184,7 +187,7 @@ export function WellnessTrend({ hid, sid }: { hid: string; sid: string }) {
                     <CartesianGrid vertical={false} stroke="var(--color-line)" />
                     <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fill: "var(--color-ink-500)", fontSize: 11 }} />
                     <YAxis domain={[0, 5]} allowDecimals={false} tickLine={false} axisLine={false} width={20} tick={{ fill: "var(--color-ink-500)", fontSize: 11 }} />
-                    <Tooltip contentStyle={{ background: "var(--color-surface)", border: "1px solid var(--color-line)", borderRadius: 12 }} />
+                    <Tooltip contentStyle={{ background: "var(--color-surface)", border: "1px solid var(--color-line)", borderRadius: 12 }} labelStyle={{ color: "var(--color-ink-900)" }} itemStyle={{ color: "var(--color-ink-900)" }} />
                     <Bar dataKey="mood" name="Mood (1–5)" fill="var(--color-brand-500)" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>

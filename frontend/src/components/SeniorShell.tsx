@@ -19,7 +19,7 @@ import { useAppointments } from "@/hooks/care-queries";
 import { Switch } from "./ui/misc";
 import { OfflineBanner } from "./OfflineBanner";
 import { EmergencyPage } from "@/pages/app/EmergencyPage";
-import { VoiceCompanion, WellnessCheckIn, speak, useSeniorText } from "@/features/phase5/components";
+import { VoiceCompanion, WellnessCheckIn, speak, useSeniorText } from "@/features/wellbeing/components";
 
 function SeniorAppointments({ hid, sid }: { hid: string; sid: string }) {
   const { t, lang } = useSeniorText();
@@ -124,8 +124,8 @@ export function SeniorShell() {
         <Logo />
         <nav aria-label="Senior" className="flex items-center gap-2">
           <ThemeToggle large />
-          <Button asChild variant="outline" size="lg"><Link to="/app/settings"><Settings2 aria-hidden /> <span className="hidden sm:inline">Text size</span></Link></Button>
-          <Button variant="ghost" size="lg" onClick={async () => { await logout(); navigate("/login"); }}><LogOut aria-hidden /> <span className="hidden sm:inline">Sign out</span></Button>
+          <Button asChild variant="outline" size="lg"><Link to="/app/settings" aria-label="Text size"><Settings2 aria-hidden /> <span className="hidden sm:inline">Text size</span></Link></Button>
+          <Button variant="ghost" size="lg" aria-label="Sign out" onClick={async () => { await logout(); navigate("/login"); }}><LogOut aria-hidden /> <span className="hidden sm:inline">Sign out</span></Button>
         </nav>
       </header>
       <OfflineBanner />

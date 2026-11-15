@@ -7,8 +7,16 @@ from fastapi import APIRouter, Depends, Query, Response
 from ...core.auth import CurrentUser, get_current_user
 from ...core.rbac import P, authorize
 from ...db import Store, get_store
-from ...schemas.households import (AuditLogOut, HouseholdCreate, HouseholdOut, HouseholdUpdate, InvitationCreate,
-                                   InvitationOut, MemberOut, MemberUpdate)
+from ...schemas.households import (
+    AuditLogOut,
+    HouseholdCreate,
+    HouseholdOut,
+    HouseholdUpdate,
+    InvitationCreate,
+    InvitationOut,
+    MemberOut,
+    MemberUpdate,
+)
 from ...schemas.seniors import SeniorCreate, SeniorOut, SeniorUpdate
 from ...services import audit, households, invitations, members, seniors
 
@@ -45,9 +53,9 @@ def get_audit(hid: str, seniorId: str | None = None, targetType: str | None = No
     authorize(store, actor.uid, hid, P.AUDIT_READ, senior_id=seniorId)
     logs = audit.list_logs(store, hid, seniorId, 500 if (targetType or actorUid) else limit)
     if targetType:
-        logs = [l for l in logs if l["targetType"] == targetType]
+        logs = [entry for entry in logs if entry["targetType"] == targetType]
     if actorUid:
-        logs = [l for l in logs if l["actorUid"] == actorUid]
+        logs = [entry for entry in logs if entry["actorUid"] == actorUid]
     return logs[:limit]
 
 

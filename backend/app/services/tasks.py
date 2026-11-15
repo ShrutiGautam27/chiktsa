@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from ..core.auth import CurrentUser
 from ..core.errors import Conflict, Forbidden, NotFound, ValidationFailed
-from ..core.rbac import P, ROLE_PERMISSIONS, Role
+from ..core.rbac import ROLE_PERMISSIONS, P, Role
 from ..core.timeutil import aware, now
 from ..db import Store
 from . import audit, notifications

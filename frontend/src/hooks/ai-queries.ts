@@ -1,4 +1,4 @@
-/** Phase 4 hooks: AI workflows, care notes, document vault. */
+/** AI workflows, care notes, document vault. */
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { useInvalidateCare } from "./care-queries";

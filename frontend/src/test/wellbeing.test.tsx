@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { configureApi } from "@/lib/api";
 import { clearOfflineData, enqueue, flush, getLastResults, getQueue, isOfflineError } from "@/lib/offline";
-import { VoiceCompanion } from "@/features/phase5/components";
+import { VoiceCompanion } from "@/features/wellbeing/components";
 import { ApiError } from "@/lib/api";
 
 const json = (b: unknown, status = 200) => new Response(JSON.stringify(b), { status, headers: { "Content-Type": "application/json" } });

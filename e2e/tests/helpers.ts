@@ -1,4 +1,5 @@
 import { expect, type Page } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
 
 export const PASSWORD = "CareHubDemo2026"; // demo seed password (see backend/scripts/seed_demo.py)
 
@@ -40,4 +41,12 @@ export async function expectHealthy(page: Page, label: string) {
   await expect(page.getByText("Something went wrong on this page"), `${label}: error boundary`).toHaveCount(0);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow, `${label}: horizontal overflow (px)`).toBeLessThanOrEqual(1);
+  await expectAccessible(page, label);
+}
+
+/** WCAG 2.1 A/AA audit with axe-core: any violation fails the test, with a readable summary. */
+export async function expectAccessible(page: Page, label: string) {
+  const { violations } = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  const summary = violations.map((v) => `${v.impact} ${v.id}: ${v.help} -> ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(" | ")}`);
+  expect(summary, `${label}: accessibility violations`).toEqual([]);
 }

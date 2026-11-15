@@ -145,7 +145,7 @@ export function Landing() {
         <div className="mt-10 grid gap-6 md:grid-cols-4">
           {STEPS.map((s) => (
             <div key={s.n}>
-              <div className="font-display text-3xl text-champagne-500">{s.n}</div>
+              <div className="font-display text-3xl text-champagne-700">{s.n}</div>
               <h3 className="mt-2 font-semibold">{s.title}</h3>
               <p className="mt-1 text-sm text-ink-500">{s.body}</p>
             </div>

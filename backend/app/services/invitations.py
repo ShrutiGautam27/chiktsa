@@ -61,7 +61,7 @@ def create(store: Store, actor: CurrentUser, hid: str, payload: dict) -> dict:
     store.set(f"invitations/{inv_id}", data)
     audit.record(store, hid, actor, "invitation.create", "invitation", inv_id,
                  f"Invited {payload['email']} as {ROLE_LABELS[role]}")
-    # NOTE: email delivery is a pending integration (Resend/SendGrid, Phase 3). The inviter shares the link.
+    # NOTE: email delivery is a pending integration (Resend/SendGrid, needs provider credentials). The inviter shares the link.
     return _out(inv_id, data, token)
 
 

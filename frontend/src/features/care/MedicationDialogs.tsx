@@ -126,7 +126,7 @@ export function MedicationFormDialog({ open, onOpenChange, hid, sid, med }: {
         )}
         {f.source === "prescription" && (
           <div className="space-y-3 rounded-xl border border-champagne-300 bg-champagne-50 p-4">
-            <Field label="Prescription text (as written)" hint="Automatic OCR from a photo arrives with the Gemini/Vision integration (Phase 4). Until then, transcribe it here.">
+            <Field label="Prescription text (as written)" hint="Type it exactly as written; Chiktsa turns it into drafts that a person must verify.">
               <Textarea rows={3} value={f.prescriptionText} onChange={(e) => set("prescriptionText", e.target.value)} placeholder="e.g. Tab Metformin 500 mg 1-0-1 after food x 30 days" />
             </Field>
             <p className="text-xs text-ink-700">Tick <strong>Unclear on prescription</strong> under any field you can't read with certainty. Unclear fields block activation until someone confirms them.</p>

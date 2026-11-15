@@ -1,9 +1,9 @@
-/** TanStack Query hooks for Phase 2 care records and the three intelligence engines. */
+/** TanStack Query hooks for care records and the three intelligence engines. */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type {
   Absence, Adherence, Appointment, AppNotification, CareTask, ConsentView, Contribution, DeliveryPrefs, DoseEvent, GapReport, Handover,
-  HouseholdOverview, JourneyEntry, Medication, NotificationRules, ReminderActivity, Responsibilities,
+  HouseholdOverview, JourneyEntry, Medication, NotificationRules, ReminderActivity, Responsibilities, SimulationResult,
 } from "@/lib/care-types";
 
 const S = (hid: string, sid: string) => `/households/${hid}/seniors/${sid}`;
@@ -130,7 +130,7 @@ export const useCover = () => {
   });
 };
 export const useCancelAbsence = (hid: string) => useCareMutation(hid, (id: string) => api.del(`/households/${hid}/absences/${id}`));
-export const useSimulate = (hid: string) => useMutation({ mutationFn: (b: Record<string, unknown>) => api.post<Record<string, any>>(`/households/${hid}/simulate`, b) });
+export const useSimulate = (hid: string) => useMutation({ mutationFn: (b: Record<string, unknown>) => api.post<SimulationResult>(`/households/${hid}/simulate`, b) });
 
 // ---- engine 3
 export const useContribution = (hid?: string) =>
@@ -158,7 +158,7 @@ export const useMarkRead = () => {
   });
 };
 
-// ---- phase 3: automation
+// ---- automation
 export const useAcknowledge = () => {
   const inv = useInvalidateCare();
   return useMutation({ mutationFn: (v: { id: string; hid?: string | null }) => api.post(`/me/notifications/${v.id}/acknowledge`), onSuccess: (_d, v) => inv(v.hid ?? undefined) });

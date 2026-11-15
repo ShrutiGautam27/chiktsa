@@ -7,4 +7,3 @@ e2e
 firestore-tests
 frontend/dist
 **/*.log
-.claude

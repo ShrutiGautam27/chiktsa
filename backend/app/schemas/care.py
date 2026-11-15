@@ -1,4 +1,4 @@
-"""Request schemas for care records and intelligence-engine actions (Phase 2)."""
+"""Request schemas for care records and intelligence-engine actions."""
 from datetime import date, datetime
 from typing import Annotated, Literal
 

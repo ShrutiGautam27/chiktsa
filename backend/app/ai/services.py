@@ -1,4 +1,4 @@
-"""PHASE 4 — AI workflows.
+"""AI workflows.
 
 Every service follows the same contract:
   1. Build the MINIMAL authorised context for one senior in one household (scope + consent aware).
@@ -13,7 +13,7 @@ from __future__ import annotations
 import math
 import re
 from collections import Counter
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel, Field
@@ -77,9 +77,7 @@ def _log(store: Store, hid: str, actor: CurrentUser, action: str, summary: str, 
 
 
 # ================================================================ Care Memory Bridge (RAG)
-_STOP = set("a an the is was were be been of to in on at for with and or but what when which who how did does do i we he she they it "
-            "this that these those my our his her their about from any there have has had last recent please tell me show ka ki ke "
-            "hai tha kya kab".split())
+_STOP = set(["a", "an", "the", "is", "was", "were", "be", "been", "of", "to", "in", "on", "at", "for", "with", "and", "or", "but", "what", "when", "which", "who", "how", "did", "does", "do", "i", "we", "he", "she", "they", "it", "this", "that", "these", "those", "my", "our", "his", "her", "their", "about", "from", "any", "there", "have", "has", "had", "last", "recent", "please", "tell", "me", "show", "ka", "ki", "ke", "hai", "tha", "kya", "kab"])
 
 
 def _tokens(text: str) -> list[str]:
@@ -153,7 +151,7 @@ def retrieve(corpus: list[dict], question: str, k: int = 6) -> list[dict]:
     n = len(corpus)
     df = Counter(t for c in toks for t in set(c))
     scored = []
-    for d, c in zip(corpus, toks):
+    for d, c in zip(corpus, toks, strict=True):
         length = sum(c.values()) or 1
         score = sum((c[t] / length) * math.log(1 + n / df[t]) for t in q if c[t])
         if score > 0:
@@ -599,7 +597,7 @@ def _offline_tasks(text: str, seniors: list[dict], members: list[dict], tz: str,
             h, mi = hh or (18, 0)
             if not hh:
                 notes.append("No time given — set to 6 pm.")
-            due = datetime(day.year, day.month, day.day, h, mi, tzinfo=ZoneInfo(tz)).astimezone(timezone.utc)
+            due = datetime(day.year, day.month, day.day, h, mi, tzinfo=ZoneInfo(tz)).astimezone(UTC)
             if due <= t:
                 notes.append("That time has already passed — please choose a new one.")
                 due = None

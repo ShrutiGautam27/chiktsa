@@ -13,7 +13,7 @@ import { SeniorFormDialog } from "@/features/SeniorFormDialog";
 import { CareCircle } from "@/features/CareCircle";
 import { AuditFeed } from "@/features/AuditFeed";
 import { AISettingsCard } from "@/features/ai/components";
-import { ConnectOrgCard } from "@/features/phase5/components";
+import { ConnectOrgCard } from "@/features/wellbeing/components";
 import { ROLE_LABELS } from "@/lib/types";
 
 export function HouseholdsPage() {

@@ -250,3 +250,19 @@ export interface ReminderActivity {
   createdAt: string;
 }
 export interface DeliveryPrefs { prefs: { email: boolean; push: boolean }; channels: Record<string, string>; devices: number }
+
+/** Result of the What-If Care Simulator. Fields present depend on the scenario. */
+export interface SimulationResult {
+  summary: string;
+  disclaimer?: string;
+  affectedResponsibilities?: { id: string; title: string; backups: { displayName: string }[] }[];
+  doseConfirmationDuties?: { medicationId: string; seniorName: string; name: string; dosesToConfirm: number }[];
+  effects?: { detail: string }[];
+  refill?: unknown;
+  orderBy?: string;
+  appointmentsBeforeDepletion?: { title: string }[];
+  dosesToRecordLater?: unknown[];
+  tasksDue?: unknown[];
+  recommendations?: string[];
+  limitations?: string;
+}

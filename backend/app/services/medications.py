@@ -436,8 +436,8 @@ def journey(store: Store, actor: CurrentUser, hid: str, sid: str, mid: str) -> l
     if not store.get(_path(hid, sid, mid)):
         raise NotFound("Medication not found.")
     logs = [d for d in audit.list_logs(store, hid, sid, limit=500) if d["targetId"] == mid]
-    return [{"id": l["id"], "at": l["at"], "action": l["action"], "summary": l["summary"], "actorName": l["actorName"],
-             "changes": l.get("changes")} for l in reversed(logs)]  # list_logs is newest-first, tie-safe
+    return [{"id": entry["id"], "at": entry["at"], "action": entry["action"], "summary": entry["summary"], "actorName": entry["actorName"],
+             "changes": entry.get("changes")} for entry in reversed(logs)]  # list_logs is newest-first, tie-safe
 
 
 def interaction_review(store: Store, actor: CurrentUser, hid: str, sid: str) -> dict:

@@ -176,11 +176,11 @@ def test_scenario_d_caregiver_unavailable_backup_accepts(fam):
     fam["ravi"].post(H(fam, f"/absences/{ab['id']}/cover"), json={"itemType": "task", "itemId": t["id"]})
     r = fam["ravi"].post(H(fam, f"/absences/{ab['id']}/cover"), json={"itemType": "appointment", "itemId": a["id"]})
     assert r.json()["uncovered"] == 0
-    assert fam["owner"].get(H(fam, f"/tasks?mine=false")).json()[0]["assigneeUid"] == fam["ravi"].uid
+    assert fam["owner"].get(H(fam, "/tasks?mine=false")).json()[0]["assigneeUid"] == fam["ravi"].uid
     assert not {"task_cover_needed", "escort_cover_needed"} & set(gap_types(fam))
     assert fam["owner"].post(H(fam, f"/absences/{ab['id']}/cover"), json={"itemType": "task", "itemId": t["id"]}).status_code == 409
     log = fam["owner"].get(H(fam, "/audit?targetType=task")).json()
-    assert any("while Anita is away" in l["summary"] for l in log)
+    assert any("while Anita is away" in entry["summary"] for entry in log)
 
 
 # ------------------------------------------------------------------ ENGINE 1: What-If simulator
@@ -209,7 +209,7 @@ def test_simulator_other_scenarios(fam):
     s = fam["owner"].post(H(fam, "/simulate"), json={"scenario": "stock_depletion", "medicationId": m["id"]}).json()
     assert s["refill"]["daysRemaining"] == 3 and s["dosesWithoutStockNext30Days"] > 0
     o = fam["owner"].post(H(fam, "/simulate"), json={"scenario": "connectivity_failure", "hours": 12}).json()
-    assert len(o["dosesToRecordLater"]) == 1 and "Phase 5" in o["limitations"]
+    assert len(o["dosesToRecordLater"]) == 1 and "synced when the connection returns" in o["limitations"]
     bad = fam["owner"].post(H(fam, "/simulate"), json={"scenario": "caregiver_unavailable"})
     assert bad.status_code == 422
 
@@ -217,7 +217,7 @@ def test_simulator_other_scenarios(fam):
 # ------------------------------------------------------------------ ENGINE 3: contribution & balancer
 def test_workload_imbalance_and_balancer_suggestions(fam):
     for i in range(4):
-        t = task(fam, title=f"Task {i}", assigneeUid=fam["anita"].uid)
+        task(fam, title=f"Task {i}", assigneeUid=fam["anita"].uid)
     task(fam, title="Unowned")
     c = fam["owner"].get(H(fam, "/contribution")).json()
     rows = {r["displayName"]: r for r in c["members"]}
@@ -300,8 +300,8 @@ def test_change_detective_shows_who_changed_and_who_approved(fam):
     m = fam["owner"].post(H(fam, f"/seniors/{fam['g']}/medications"), json=MED).json()
     fam["anita"].post(H(fam, f"/seniors/{fam['g']}/medications/{m['id']}/verify"), json={"acknowledgeWarnings": True})
     logs = fam["owner"].get(H(fam, f"/audit?targetType=medication&seniorId={fam['g']}")).json()
-    verify_log = next(l for l in logs if l["action"] == "medication.verify")
+    verify_log = next(entry for entry in logs if entry["action"] == "medication.verify")
     assert verify_log["actorName"] == "Anita" and verify_log["changes"]["approvedBy"]["to"] == "Anita"
     assert verify_log["changes"]["status"] == {"from": "pending_verification", "to": "active"}
     by_anita = fam["owner"].get(H(fam, f"/audit?actorUid={fam['anita'].uid}")).json()
-    assert all(l["actorUid"] == fam["anita"].uid for l in by_anita)
+    assert all(entry["actorUid"] == fam["anita"].uid for entry in by_anita)

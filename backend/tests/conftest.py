@@ -109,11 +109,11 @@ def make_actor(client):
 
 
 # Monday 16 Nov 2026, 10:00 in Asia/Kolkata (04:30 UTC) — households default to Asia/Kolkata.
-from datetime import datetime, timezone  # noqa: E402
+from datetime import UTC, datetime  # noqa: E402
 
 from app.core import timeutil  # noqa: E402
 
-FROZEN = datetime(2026, 11, 16, 4, 30, tzinfo=timezone.utc)
+FROZEN = datetime(2026, 11, 16, 4, 30, tzinfo=UTC)
 
 
 @pytest.fixture(autouse=True)

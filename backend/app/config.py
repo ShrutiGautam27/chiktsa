@@ -5,7 +5,7 @@ from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-DEFAULT_DEV_SECRET = "dev-only-change-me-carehub-local-secret-0000000000"
+DEFAULT_DEV_SECRET = "dev-only-change-me-carehub-local-secret-0000000000"  # noqa: S105 - rejected in production
 
 
 class Settings(BaseSettings):
@@ -35,7 +35,7 @@ class Settings(BaseSettings):
 
     invitation_days: int = 7
 
-    # Background jobs (Phase 3). Cloud Scheduler calls POST /api/internal/jobs/tick with X-Job-Token.
+    # Background jobs. Cloud Scheduler calls POST /api/internal/jobs/tick with X-Job-Token.
     job_token: str | None = None
     cron_secret: str | None = None             # Vercel Cron sends "Authorization: Bearer <CRON_SECRET>"
     run_scheduler_in_process: bool = True      # local development convenience; disable on Cloud Run
@@ -48,7 +48,7 @@ class Settings(BaseSettings):
     app_base_url: str = "http://localhost:5391"
     push_enabled: bool = False                  # Firebase Cloud Messaging via firebase-admin
 
-    # AI (Phase 4). Without a key every AI workflow uses its deterministic offline engine.
+    # AI. Without a key every AI workflow uses its deterministic offline engine.
     gemini_api_key: str | None = None
     gemini_model: str = "gemini-2.5-flash"
     ai_rate_limit_per_hour: int = 60

@@ -1,8 +1,8 @@
 import random
 import secrets
 import string
+from collections.abc import Iterator
 from contextlib import contextmanager
-from typing import Iterator
 
 _ALPHABET = string.ascii_letters + string.digits
 # Set only while seeding the public demo (see deterministic_ids); never in normal operation.
@@ -29,7 +29,7 @@ def deterministic_ids(seed: str) -> Iterator[None]:
     started on one instance is valid on the next. Demo data is public sample data; IDs need not
     be secret there. Real data always uses `secrets`."""
     global _demo_rng
-    _demo_rng = random.Random(seed)  # nosec B311
+    _demo_rng = random.Random(seed)  # nosec B311  # noqa: S311 - reproducible demo IDs only
     try:
         yield
     finally:

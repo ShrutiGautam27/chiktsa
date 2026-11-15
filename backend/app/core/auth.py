@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import secrets
 from dataclasses import dataclass
-from datetime import timedelta
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import jwt
@@ -17,14 +17,12 @@ from ..config import get_settings
 from ..db import Store, get_store
 from .errors import Unauthorized
 from .passwords import sha256
-from datetime import datetime, timezone
-
 from .timeutil import aware
 
 
 def now() -> datetime:
     """Security tokens always use the real wall clock (never the test/simulation clock)."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 ALGO = "HS256"
 ISSUER = "carehub-local"

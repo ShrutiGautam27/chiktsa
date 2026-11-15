@@ -58,7 +58,7 @@ describe("Family Time-Zone Coordinator — DualTime", () => {
   });
 });
 
-describe("Phase 2 navigation", () => {
+describe("care navigation", () => {
   it("implemented engines are no longer marked planned; coordination is available", () => {
     const items = navFor("household_owner", () => true).flatMap((s) => s.items);
     const byLabel = Object.fromEntries(items.map((i) => [i.label, i]));

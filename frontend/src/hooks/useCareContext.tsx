@@ -41,7 +41,7 @@ const Ctx = createContext<CareContextValue | null>(null);
 export function CareContextProvider({ children }: { children: ReactNode }) {
   const me = useMe();
   const [state, setState] = useState<Stored>(load);
-  const memberships = me.data?.memberships ?? [];
+  const memberships = useMemo(() => me.data?.memberships ?? [], [me.data]);
 
   // Keep the selection valid: fall back to the first household if the stored one is gone/revoked.
   useEffect(() => {

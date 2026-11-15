@@ -52,7 +52,8 @@ class MemoryStore:
     # -- API -------------------------------------------------------------
     def get(self, path: str) -> Doc | None:
         path = self._norm(path)
-        assert is_document_path(path), f"Not a document path: {path}"
+        if not is_document_path(path):
+            raise ValueError(f"Not a document path: {path}")
         with self._lock:
             data = self._docs.get(path)
             if data is None:
@@ -61,7 +62,8 @@ class MemoryStore:
 
     def set(self, path: str, data: dict[str, Any]) -> Doc:
         path = self._norm(path)
-        assert is_document_path(path), f"Not a document path: {path}"
+        if not is_document_path(path):
+            raise ValueError(f"Not a document path: {path}")
         with self._lock:
             self._docs[path] = copy.deepcopy(data)
             self._flush()
@@ -100,7 +102,8 @@ class MemoryStore:
         limit: int | None = None,
     ) -> list[Doc]:
         collection_path = self._norm(collection_path)
-        assert is_collection_path(collection_path), f"Not a collection path: {collection_path}"
+        if not is_collection_path(collection_path):
+            raise ValueError(f"Not a collection path: {collection_path}")
         prefix = collection_path + "/"
         depth = collection_path.count("/") + 2
         with self._lock:

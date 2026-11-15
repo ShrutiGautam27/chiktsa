@@ -31,7 +31,7 @@ function Workload({ hid }: { hid: string }) {
                     <CartesianGrid vertical={false} stroke="var(--color-line)" />
                     <XAxis dataKey="name" tickLine={false} axisLine={false} tick={{ fill: "var(--color-ink-500)", fontSize: 12 }} />
                     <YAxis allowDecimals={false} tickLine={false} axisLine={false} width={24} tick={{ fill: "var(--color-ink-500)", fontSize: 12 }} />
-                    <Tooltip contentStyle={{ background: "var(--color-surface)", border: "1px solid var(--color-line)", borderRadius: 12 }} />
+                    <Tooltip contentStyle={{ background: "var(--color-surface)", border: "1px solid var(--color-line)", borderRadius: 12 }} labelStyle={{ color: "var(--color-ink-900)" }} itemStyle={{ color: "var(--color-ink-900)" }} />
                     <Legend iconType="circle" wrapperStyle={{ fontSize: 12 }} />
                     <Bar dataKey="Accepted" stackId="a" fill="var(--color-brand-500)" />
                     <Bar dataKey="Awaiting acceptance" stackId="a" fill="var(--color-sage-400)" />
@@ -63,7 +63,7 @@ function Workload({ hid }: { hid: string }) {
       </div>
       <Card>
         <CardHeader><CardTitle>Care contributions — last {d.windowDays} days</CardTitle><CardDescription>Listed alphabetically.</CardDescription></CardHeader>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto focus-visible:outline-2 focus-visible:outline-brand-600" tabIndex={0} role="region" aria-label="Scrollable table">
           <table className="w-full min-w-[640px] text-sm">
             <thead><tr className="border-y border-line text-left text-xs uppercase tracking-wide text-ink-500">
               {["Member", "Accepted", "Awaiting", "Overdue", "Completed", "Accompanying", "Doses recorded", "Handovers"].map((h) => <th key={h} className="px-4 py-2 font-medium">{h}</th>)}

@@ -1,4 +1,4 @@
-"""PHASE 3 — Notification automation: the reminder & escalation engine.
+"""Notification automation: the reminder & escalation engine.
 
 `run_tick()` is called every minute (Cloud Scheduler → POST /api/internal/jobs/tick, or the
 in-process scheduler during development). It is:
@@ -24,14 +24,14 @@ from zoneinfo import ZoneInfo
 from ..core.auth import CurrentUser
 from ..core.errors import ValidationFailed
 from ..core.passwords import sha256
-from ..core.rbac import P, ROLE_PERMISSIONS, Role, authorize
+from ..core.rbac import ROLE_PERMISSIONS, P, Role, authorize
 from ..core.timeutil import aware, local_date, now
 from ..db import Store
 from . import audit
 from . import medications as meds
 from .access import CATEGORIES, active_members, consent_path, consent_state, member_can_see
 from .ids import new_id
-from .notifications import notify, notify_many
+from .notifications import notify_many
 
 log = logging.getLogger("carehub.jobs")
 

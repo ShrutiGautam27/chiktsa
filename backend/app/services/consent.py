@@ -47,8 +47,8 @@ def list_access(store: Store, actor: CurrentUser, hid: str, sid: str) -> dict:
                      "categories": list(CATEGORIES) if state in ("full", "owner") else (cd or {}).get("categories", []) if state == "limited" else [],
                      "expiresAt": exp, "expiringSoon": bool(exp and state == "limited" and exp - t <= timedelta(days=7)),
                      "restrictable": m["role"] != "household_owner"})
-    history = [{"at": l["at"], "summary": l["summary"], "actorName": l["actorName"]}
-               for l in audit.list_logs(store, hid, sid, limit=200) if l["targetType"] == "consent"]
+    history = [{"at": entry["at"], "summary": entry["summary"], "actorName": entry["actorName"]}
+               for entry in audit.list_logs(store, hid, sid, limit=200) if entry["targetType"] == "consent"]
     return {"seniorId": sid, "categories": list(CATEGORIES), "members": sorted(rows, key=lambda r: r["displayName"].lower()),
             "history": history}
 

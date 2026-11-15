@@ -19,7 +19,8 @@ import { browserTimeZone } from "@/lib/utils";
 export function safeNext(next: string | null) {
   // Same-site paths only. Browsers treat "/\host" like "//host", so backslashes and control
   // characters are rejected too, and the result must resolve to this origin.
-  if (!next || !next.startsWith("/") || next.startsWith("//") || /[\\\u0000-\u001f\u007f]/.test(next)) return "/app";
+  const unsafeChar = [...(next ?? "")].some((c) => c === "\\" || c.charCodeAt(0) < 0x20 || c.charCodeAt(0) === 0x7f);
+  if (!next || !next.startsWith("/") || next.startsWith("//") || unsafeChar) return "/app";
   try {
     const u = new URL(next, window.location.origin);
     return u.origin === window.location.origin ? u.pathname + u.search + u.hash : "/app";

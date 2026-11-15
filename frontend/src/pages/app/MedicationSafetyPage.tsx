@@ -94,7 +94,7 @@ export function MedicationSafetyPage() {
       <Card className="mb-6 p-5">
         <div className="grid gap-4 text-sm sm:grid-cols-3">
           {[
-            ["1. Enter or transcribe", "Copy the prescription and flag anything unclear. Automatic photo OCR arrives with the AI integration (Phase 4)."],
+            ["1. Enter or transcribe", "Copy the prescription exactly as written and flag anything unclear."],
             ["2. Ambiguity detector", "Missing fields, unclear handwriting, frequency conflicts and error-prone notation (e.g. “QD”, “.5 mg”) block activation."],
             ["3. Human verification", "A family administrator or primary caregiver checks against the original and activates the schedule."],
           ].map(([t, d]) => <div key={t}><p className="font-semibold">{t}</p><p className="mt-1 text-ink-500">{d}</p></div>)}

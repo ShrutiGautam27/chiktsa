@@ -8,7 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from .api.routes import ai, auth, care, households, internal, me, phase5
+from .api.routes import ai, auth, care, households, internal, me, wellbeing
 from .config import get_settings
 from .core.errors import AppError, app_error_handler
 from .core.logging import RequestLogMiddleware, configure_logging
@@ -84,7 +84,7 @@ def create_app() -> FastAPI:
         return JSONResponse(status_code=422, content={"error": {"code": "validation_failed",
                             "message": "Some fields are invalid.", "fields": fields}})
 
-    for r in (auth.router, me.router, ai.router, phase5.router, care.router, households.router, internal.router):
+    for r in (auth.router, me.router, ai.router, wellbeing.router, care.router, households.router, internal.router):
         app.include_router(r, prefix="/api")
 
     @app.get("/api/health", tags=["ops"])

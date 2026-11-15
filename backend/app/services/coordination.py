@@ -10,7 +10,7 @@ from datetime import timedelta
 from statistics import mean
 
 from ..core.auth import CurrentUser
-from ..core.rbac import P, ROLE_PERMISSIONS, Role
+from ..core.rbac import ROLE_PERMISSIONS, P, Role
 from ..core.timeutil import aware, now
 from ..db import Store
 from .access import Access, active_members, member_can_see
@@ -36,12 +36,11 @@ def _load_by_member(store: Store, acc: Access, days: int) -> tuple[dict, list]:
             continue
         tasks.append((d.id, x))
         r = rows.get(x.get("assigneeUid"))
-        if x["status"] in OPEN_STATES and x["status"] != "open":
-            if r:
-                r["assignedPending" if x["status"] == "assigned" else "accepted"] += 1
-                due = aware(x.get("dueAt"))
-                if due and due < t:
-                    r["overdue"] += 1
+        if x["status"] in OPEN_STATES and x["status"] != "open" and r:
+            r["assignedPending" if x["status"] == "assigned" else "accepted"] += 1
+            due = aware(x.get("dueAt"))
+            if due and due < t:
+                r["overdue"] += 1
         if x["status"] == "done" and aware(x.get("completedAt")) and aware(x["completedAt"]) >= since:
             done_by = rows.get(x.get("completedBy"))
             if done_by:

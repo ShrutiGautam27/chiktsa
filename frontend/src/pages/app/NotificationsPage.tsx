@@ -55,7 +55,7 @@ export function InboxItem({ n }: { n: AppNotification }) {
     });
   return (
     <li className={cn("flex flex-wrap items-start gap-3 p-4", !n.read && "bg-brand-50/50")}>
-      <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", n.read ? "bg-transparent" : "bg-brand-500")} aria-label={n.read ? undefined : "Unread"} />
+      <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", n.read ? "bg-transparent" : "bg-brand-500")} aria-hidden />{!n.read && <span className="sr-only">Unread: </span>}
       <div className="min-w-0 flex-1">
         <p className="font-medium">{n.title}</p>
         <p className="text-sm text-ink-700">{n.body}</p>

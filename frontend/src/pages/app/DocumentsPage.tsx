@@ -84,7 +84,7 @@ function ExtractDialog({ hid, sid, doc, onClose }: { hid: string; sid: string; d
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-2 text-xs text-ink-500"><EngineBadge engine={ex.engine} /> {ex.message}{ex.prescriber && ` · ${ex.prescriber}`}</div>
             {ex.medications.length === 0 && <p className="text-ink-500">No medicines were recognised. Check the transcription format.</p>}
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto focus-visible:outline-2 focus-visible:outline-brand-600" tabIndex={0} role="region" aria-label="Scrollable table">
               <table className="w-full min-w-[560px] text-left">
                 <thead className="text-xs uppercase text-ink-500"><tr><th className="p-2" /><th className="p-2">Medicine</th><th className="p-2">Strength</th><th className="p-2">Dose</th><th className="p-2">Frequency</th><th className="p-2">Instructions</th></tr></thead>
                 <tbody>{ex.medications.map((m, i) => {

@@ -1,4 +1,4 @@
-/** TanStack Query hooks for every Phase 1 resource. Query keys are tenant-scoped. */
+/** TanStack Query hooks for core household resources. Query keys are tenant-scoped. */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { AuditLog, Household, Invitation, Me, Member, Senior, User } from "@/lib/types";

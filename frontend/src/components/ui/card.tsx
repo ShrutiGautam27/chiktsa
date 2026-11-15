@@ -7,8 +7,8 @@ export function Card({ className, ...p }: HTMLAttributes<HTMLDivElement>) {
 export function CardHeader({ className, ...p }: HTMLAttributes<HTMLDivElement>) {
   return <div className={cn("flex flex-col gap-1 p-5 pb-3 sm:p-6 sm:pb-3", className)} {...p} />;
 }
-export function CardTitle({ className, ...p }: HTMLAttributes<HTMLHeadingElement>) {
-  return <h2 className={cn("text-base font-semibold text-ink-900", className)} {...p} />;
+export function CardTitle({ className, children, ...p }: HTMLAttributes<HTMLHeadingElement>) {
+  return <h2 className={cn("text-base font-semibold text-ink-900", className)} {...p}>{children}</h2>;
 }
 export function CardDescription({ className, ...p }: HTMLAttributes<HTMLParagraphElement>) {
   return <p className={cn("text-sm text-ink-500", className)} {...p} />;

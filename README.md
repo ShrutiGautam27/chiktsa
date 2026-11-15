@@ -1,5 +1,7 @@
 # Chiktsa
 
+[![CI](https://github.com/ShrutiGautam27/chiktsa/actions/workflows/ci.yml/badge.svg)](https://github.com/ShrutiGautam27/chiktsa/actions/workflows/ci.yml)
+
 **One Platform. Every Generation. Connected Care.**
 
 Chiktsa is a multi-tenant elderly-care coordination platform that connects seniors, families,
@@ -62,7 +64,9 @@ Demo accounts and their shared password are documented at the top of `backend/sc
 
 ```bash
 cd backend && .venv/Scripts/python -m pytest -q        # API: auth, tenancy, RBAC, invitations
-cd frontend && npm test                                # Vitest + RTL
+cd frontend && npm test                                # Vitest + RTL (npm run test:coverage for a coverage report)
+cd frontend && npm run lint                            # ESLint: TypeScript, React hooks, jsx-a11y accessibility rules
+cd backend && .venv/Scripts/ruff check .               # Python lint: pyflakes, bugbear, isort, security rules
 cd frontend && npm run typecheck && npm run build
 cd firestore-tests && npm install && npm test          # rules tests (needs Java 11+; downloads the emulator)
 cd e2e && npm install && npx playwright install chromium && npx playwright test   # end-to-end, desktop + mobile
@@ -70,7 +74,7 @@ cd backend && .venv/Scripts/pip-audit && .venv/Scripts/bandit -q -r app -ll     
 ```
 The end-to-end suite starts its own isolated, freshly seeded API (port 8090) and web app (port 5392). It sweeps
 every page as owner, administrator, caregiver and senior on desktop and mobile — failing on any console error,
-server error, broken render or horizontal overflow — and runs real journeys, including Scenario G (record a dose
+server error, broken render, horizontal overflow or WCAG 2.1 AA violation (axe-core) — and runs real journeys, including Scenario G (record a dose
 offline, reconnect, verify it synced exactly once).
 
 ## Live demo (Vercel)
@@ -113,7 +117,7 @@ production code paths (Firebase ID tokens, Firestore queries, security rules):
 ```bash
 cd firestore-tests && npm install && npm run emulators          # Auth :9099, Firestore :8085, UI :4000
 ```
-Then, in two more terminals (or use the `api-firebase` / `web-firebase` configs in `.claude/launch.json`):
+Then, in two more terminals:
 ```bash
 cd backend && set AUTH_PROVIDER=firebase& set DATA_STORE=firestore& set FIREBASE_PROJECT_ID=demo-carehub& set FIRESTORE_EMULATOR_HOST=127.0.0.1:8085& set FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099& .venv\Scripts\python -m uvicorn app.main:app --port 8080
 cd frontend && npm run dev -- --mode emulator

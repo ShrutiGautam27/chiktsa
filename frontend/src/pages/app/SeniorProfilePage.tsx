@@ -13,7 +13,7 @@ import { SeniorFormDialog } from "@/features/SeniorFormDialog";
 import { TodayDoses } from "@/features/care/TodayDoses";
 import { GapList } from "./ContinuityPage";
 import { CareNotesCard } from "@/features/ai/components";
-import { WellnessTrend, WishesCard } from "@/features/phase5/components";
+import { WellnessTrend, WishesCard } from "@/features/wellbeing/components";
 import { AuditFeed } from "@/features/AuditFeed";
 import { errorMessage } from "@/lib/api";
 import { formatDate } from "@/lib/utils";
@@ -117,7 +117,7 @@ export function SeniorOverview({ hid, sid }: { hid: string; sid: string }) {
         <div className="lg:col-span-3"><WishesCard hid={hid} sid={sid} name={s.preferredName || s.fullName} /></div>
 
         <Card className="lg:col-span-3">
-          <CardHeader><CardTitle>Care gaps for {s.preferredName || s.fullName}</CardTitle><CardDescription>AI-generated insights arrive in Phase 4; these are rule-based responsibility checks.</CardDescription></CardHeader>
+          <CardHeader><CardTitle>Care gaps for {s.preferredName || s.fullName}</CardTitle><CardDescription>Rule-based responsibility checks, updated as records change.</CardDescription></CardHeader>
           <CardContent><GapList hid={hid} sid={sid} /></CardContent>
         </Card>
 

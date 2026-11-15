@@ -106,6 +106,13 @@ export function AppShell() {
   useApplyAccessibility();
   const { role } = useCareContext();
   const [open, setOpen] = useState(false);
+  // The mobile navigation drawer closes with Escape, like any dialog.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
   const location = useLocation();
   useEffect(() => setOpen(false), [location.pathname]);
 
@@ -125,7 +132,7 @@ export function AppShell() {
       {/* Mobile drawer */}
       {open && (
         <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
-          <div className="absolute inset-0 bg-ink-900/30" onClick={() => setOpen(false)} />
+          <button type="button" tabIndex={-1} aria-label="Close menu" className="absolute inset-0 cursor-default bg-ink-900/30" onClick={() => setOpen(false)} />
           <aside className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-ivory px-3 py-5 shadow-lift">
             <div className="mb-5 flex items-center justify-between px-2">
               <Logo />

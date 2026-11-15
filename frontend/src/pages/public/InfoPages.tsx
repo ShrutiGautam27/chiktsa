@@ -136,7 +136,7 @@ export function NotFoundPage() {
   usePageTitle("Page not found");
   return (
     <section className="mx-auto max-w-lg px-4 py-24 text-center">
-      <p className="font-display text-6xl text-champagne-500">404</p>
+      <p className="font-display text-6xl text-champagne-700">404</p>
       <h1 className="mt-4 font-display text-2xl">This page doesn't exist</h1>
       <Button asChild className="mt-6"><Link to="/">Back to home</Link></Button>
     </section>
