@@ -2,7 +2,7 @@
 fastapi>=0.163,<1
 starlette>=1.10,<2
 uvicorn[standard]>=0.54,<1
-pydantic>=2.14,<3
+pydantic>=2.14.3,<3
 pydantic-settings>=2.16,<3
 PyJWT>=2.15,<3
 email-validator>=2.4,<3
