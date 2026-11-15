@@ -88,7 +88,8 @@ export function LoginPage() {
   const form = useForm<z.infer<typeof loginSchema>>({ resolver: zodResolver(loginSchema), defaultValues: { email: "", password: "" } });
   const next = safeNext(params.get("next"));
 
-  if (status === "authenticated") return <Navigate to={next} replace />;
+  // While a submit is in flight the handler decides where to go (sign-up goes to "create household").
+  if (status === "authenticated" && !form.formState.isSubmitting) return <Navigate to={next} replace />;
 
   const onSubmit = form.handleSubmit(async (v) => {
     setError(null);
@@ -146,7 +147,8 @@ export function SignupPage() {
   });
   const next = safeNext(params.get("next"));
 
-  if (status === "authenticated") return <Navigate to={next} replace />;
+  // While a submit is in flight the handler decides where to go (sign-up goes to "create household").
+  if (status === "authenticated" && !form.formState.isSubmitting) return <Navigate to={next} replace />;
 
   const onSubmit = form.handleSubmit(async (v) => {
     setError(null);

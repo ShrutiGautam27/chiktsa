@@ -17,3 +17,9 @@ e2e/report/
 e2e/test-results/
 # deployment tooling
 .vercel/
+
+.vercel
+.env*
+!.env.example
+!**/.env.example
+!frontend/.env.emulator
