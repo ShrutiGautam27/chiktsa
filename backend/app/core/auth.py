@@ -60,9 +60,26 @@ def _verify_local(token: str) -> dict[str, Any]:
     return claims
 
 
+# Public demo (serverless, per-instance memory): a refresh token stored on one instance would be
+# unknown to the next, so demo refresh tokens are signed and stateless instead. They expire, are
+# HttpOnly cookies and are bound to an existing user, but lack server-side rotation/reuse
+# detection, which production (shared Firestore store) keeps.
+DEMO_PREFIX = "demo."
+
+
+def _demo_refresh(uid: str) -> str:
+    s = get_settings()
+    t = now()
+    return DEMO_PREFIX + jwt.encode({"sub": uid, "typ": "refresh", "iss": ISSUER, "iat": t,
+                                     "exp": t + timedelta(days=1), "jti": secrets.token_hex(8)},
+                                    s.jwt_secret, algorithm=ALGO)
+
+
 def issue_refresh_token(store: Store, uid: str) -> str:
     """Create an opaque refresh token; only its hash is stored. Format: `<uid>.<secret>`."""
     s = get_settings()
+    if s.environment == "demo":
+        return _demo_refresh(uid)
     secret = secrets.token_urlsafe(32)
     cred = store.get(f"authCredentials/{uid}")
     t = now()
@@ -84,6 +101,17 @@ ROTATION_GRACE = timedelta(seconds=30)
 def rotate_refresh_token(store: Store, raw: str) -> tuple[str, str]:
     """Validate and rotate. Replaying a rotated token after the grace window, or presenting an
     unknown token, revokes every session for the user (token-theft signal)."""
+    if raw.startswith(DEMO_PREFIX):
+        if get_settings().environment != "demo":
+            raise Unauthorized("Invalid session.")
+        try:
+            claims = jwt.decode(raw[len(DEMO_PREFIX):], get_settings().jwt_secret, algorithms=[ALGO],
+                                issuer=ISSUER, options={"require": ["exp", "sub", "iss"]})
+        except jwt.PyJWTError as e:
+            raise Unauthorized("Session expired. Please sign in again.") from e
+        if claims.get("typ") != "refresh" or not store.get(f"users/{claims['sub']}"):
+            raise Unauthorized("Invalid session.")
+        return claims["sub"], _demo_refresh(claims["sub"])
     try:
         uid, secret = raw.split(".", 1)
     except ValueError as e:
@@ -110,6 +138,8 @@ def rotate_refresh_token(store: Store, raw: str) -> tuple[str, str]:
 
 
 def revoke_refresh_token(store: Store, raw: str) -> None:
+    if raw.startswith(DEMO_PREFIX):
+        return  # stateless demo token: logout clears the cookie
     try:
         uid, secret = raw.split(".", 1)
     except ValueError:

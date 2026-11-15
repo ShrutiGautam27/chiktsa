@@ -41,7 +41,11 @@ async def lifespan(app: FastAPI):
         if not find_by_email(store, "ravi@example.com"):
             from scripts.seed_demo import seed
 
-            seed(store)
+            from .services.ids import deterministic_ids
+
+            # Serverless runs several instances, each with its own memory: seed identical IDs.
+            with deterministic_ids("carehub-public-demo"):
+                seed(store)
     if s.run_scheduler_in_process and s.environment == "development":
         threading.Thread(target=_scheduler_loop, args=(stop, s.scheduler_interval_seconds), daemon=True,
                          name="carehub-scheduler").start()
