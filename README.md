@@ -81,6 +81,10 @@ The demo runs with `ENVIRONMENT=demo`: an in-memory store seeded with sample hou
 `anita@example.com` (caregiver in two households), `priya@example.com` (family admin), `kamla@example.com` (senior).
 Never enter real medical information into the demo. Production uses Cloud Run + Firestore + Firebase Auth.
 
+Live: **https://carehub-ai-gamma.vercel.app**. Serverless note: each Vercel instance keeps its own in-memory copy of
+the demo data (seeded identically, and sign-in works across instances), so changes you make may not appear on every
+request and vanish on cold start. That is acceptable for a demo only; real deployments use the shared Firestore store.
+
 ## Configuration
 
 * Backend: copy `backend/.env.example` to `backend/.env`.
