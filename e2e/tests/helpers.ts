@@ -19,6 +19,8 @@ export function watch(page: Page) {
     const t = m.text();
     // Expected: the browser logs intentional 4xx responses (permission checks) as "Failed to load resource".
     if (/Failed to load resource: the server responded with a status of 4\d\d/.test(t)) return;
+    // Expected: requests made while a test has deliberately switched the browser offline.
+    if (/ERR_INTERNET_DISCONNECTED/.test(t)) return;
     problems.push(`console: ${t}`);
   });
   page.on("response", (r) => {
@@ -26,7 +28,7 @@ export function watch(page: Page) {
   });
   page.on("requestfailed", (r) => {
     const err = r.failure()?.errorText ?? "";
-    if (r.url().includes("/api/") && !/ERR_ABORTED|NS_BINDING_ABORTED|cancelled/i.test(err)) problems.push(`request failed: ${r.url()} ${err}`);
+    if (r.url().includes("/api/") && !/ERR_ABORTED|NS_BINDING_ABORTED|ERR_INTERNET_DISCONNECTED|cancelled/i.test(err)) problems.push(`request failed: ${r.url()} ${err}`);
   });
   return problems;
 }

@@ -18,6 +18,9 @@ const queryClient = new QueryClient({
       // Don't retry authorisation/validation failures — they won't succeed on retry.
       retry: (count, err) => !(err instanceof ApiError && err.status >= 400 && err.status < 500) && count < 2,
     },
+    // Never let React Query silently pause writes while offline: the request must fail so the
+    // app's own offline queue (lib/offline.ts) can save it on the device and sync it later.
+    mutations: { networkMode: "always" },
   },
 });
 

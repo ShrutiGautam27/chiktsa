@@ -81,8 +81,10 @@ test("emergency card: approve on the senior's behalf and open the public share l
   const problems = watch(page);
   await login(page, "ravi@example.com");
   await page.goto("/app/emergency");
-  const dadaji = page.getByRole("tab", { name: "Dadaji" });
-  if (await dadaji.count()) await dadaji.click();
+  // Mohan ("Dadaji") has no account of his own, so the owner may approve on his behalf.
+  // (Kamla, "Dadi", signs in herself and approves her own card.)
+  await page.getByRole("tab", { name: "Dadaji" }).click();
+  await expect(page.getByRole("tab", { name: "Dadaji" })).toHaveAttribute("aria-selected", "true");
   await page.getByLabel("Blood group").selectOption("B+");
   await page.getByLabel("Allergies").fill("Penicillin");
   await page.getByRole("button", { name: "Save details" }).click();

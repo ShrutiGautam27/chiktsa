@@ -1,4 +1,4 @@
-import { forwardRef, useState, type ReactNode } from "react";
+import { forwardRef, useRef, useState, type ReactNode } from "react";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -87,16 +87,20 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const form = useForm<z.infer<typeof loginSchema>>({ resolver: zodResolver(loginSchema), defaultValues: { email: "", password: "" } });
   const next = safeNext(params.get("next"));
+  const submitted = useRef(false);
 
-  // While a submit is in flight the handler decides where to go (sign-up goes to "create household").
-  if (status === "authenticated" && !form.formState.isSubmitting) return <Navigate to={next} replace />;
+  // Once a submit starts, the handler decides where to go (sign-up goes to "create household");
+  // the page can stay mounted during the route transition, so this must not race it.
+  if (status === "authenticated" && !submitted.current) return <Navigate to={next} replace />;
 
   const onSubmit = form.handleSubmit(async (v) => {
     setError(null);
+    submitted.current = true;
     try {
       await login(v.email, v.password);
       navigate(next, { replace: true });
     } catch (e) {
+      submitted.current = false;
       setError(errorMessage(e));
     }
   });
@@ -146,16 +150,20 @@ export function SignupPage() {
     defaultValues: { displayName: "", email: "", password: "", confirm: "", locale: "en" },
   });
   const next = safeNext(params.get("next"));
+  const submitted = useRef(false);
 
-  // While a submit is in flight the handler decides where to go (sign-up goes to "create household").
-  if (status === "authenticated" && !form.formState.isSubmitting) return <Navigate to={next} replace />;
+  // Once a submit starts, the handler decides where to go (sign-up goes to "create household");
+  // the page can stay mounted during the route transition, so this must not race it.
+  if (status === "authenticated" && !submitted.current) return <Navigate to={next} replace />;
 
   const onSubmit = form.handleSubmit(async (v) => {
     setError(null);
+    submitted.current = true;
     try {
       await signup({ email: v.email, password: v.password, displayName: v.displayName, locale: v.locale, timezone: browserTimeZone() });
       navigate(next === "/app" ? "/app/households?new=1" : next, { replace: true });
     } catch (e) {
+      submitted.current = false;
       setError(errorMessage(e));
     }
   });
