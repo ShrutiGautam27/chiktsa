@@ -1,0 +1,17 @@
+{
+  "name": "carehub-firestore-rules-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "firebase emulators:exec --only firestore --project demo-carehub --config ../firebase.json \"vitest run --root .\"",
+    "test:api": "firebase emulators:exec --only auth,firestore --project demo-carehub --config ../firebase.json \"node run-api-tests.mjs\"",
+    "test:all": "firebase emulators:exec --only auth,firestore --project demo-carehub --config ../firebase.json \"vitest run --root . && node run-api-tests.mjs\"",
+    "emulators": "firebase emulators:start --only auth,firestore --project demo-carehub --config ../firebase.json"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^4.0.1",
+    "firebase": "^11.0.2",
+    "firebase-tools": "^13.29.1",
+    "vitest": "^2.1.8"
+  }
+}

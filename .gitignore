@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+backend/.venv/
+backend/.data/
+__pycache__/
+.pytest_cache/
+*.pyc
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+# end-to-end test artifacts
+e2e/.data/
+e2e/report/
+e2e/test-results/
+# deployment tooling
+.vercel/

@@ -1,0 +1,10 @@
+{
+  "name": "CareHub AI",
+  "short_name": "CareHub",
+  "description": "Connected family care for elders",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#fbf8f2",
+  "theme_color": "#0F513A",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

@@ -1,0 +1,120 @@
+rules_version = '2';
+
+// CareHub AI — Firestore security rules (defence in depth).
+//
+// All WRITES go through the FastAPI backend (Admin SDK bypasses rules), where requests are
+// authenticated, authorised, validated and audited. Clients therefore get NO direct write access.
+// Direct READS are allowed only for:
+//   * the signed-in user's own profile and notification inbox, and
+//   * household data for ACTIVE, NON-EXPIRED members, restricted to the elderly profiles in scope.
+// Credentials, invitations and audit logs are never client-readable.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+
+    function memberDoc(hid) {
+      return get(/databases/$(database)/documents/households/$(hid)/members/$(request.auth.uid));
+    }
+
+    function isActiveMember(hid) {
+      return signedIn()
+        && exists(/databases/$(database)/documents/households/$(hid)/members/$(request.auth.uid))
+        && memberDoc(hid).data.status == 'active'
+        && (memberDoc(hid).data.get('expiresAt', null) == null
+            || memberDoc(hid).data.expiresAt > request.time);
+    }
+
+    function canSeeSenior(hid, sid) {
+      let m = memberDoc(hid).data;
+      return isActiveMember(hid) && (
+        m.role == 'senior'
+          ? m.get('linkedSeniorId', null) == sid
+          : (m.seniorScope == 'all' || (m.seniorScope is list && sid in m.seniorScope))
+      );
+    }
+
+    function hasRole(hid, roles) {
+      return isActiveMember(hid) && memberDoc(hid).data.role in roles;
+    }
+
+    // ---- users
+    match /users/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+      match /notifications/{nid} {
+        allow read: if signedIn() && request.auth.uid == uid;
+        allow write: if false;
+      }
+    }
+
+    // ---- secrets: local-auth credentials are server-only
+    match /authCredentials/{uid} {
+      allow read, write: if false;
+    }
+
+    // ---- invitations: resolved server-side by token hash only
+    match /invitations/{id} {
+      allow read, write: if false;
+    }
+
+    // ---- households (tenants)
+    match /households/{hid} {
+      allow read: if isActiveMember(hid);
+      allow write: if false;
+
+      match /members/{uid} {
+        allow read: if isActiveMember(hid);
+        allow write: if false;
+      }
+
+      // Elderly profile document: readable by members whose scope includes it.
+      // Per-profile medical subcollections (medications, doseEvents, appointments, consents, documents…)
+      // are SERVER-ONLY: senior-controlled consent (category limits, revocation, expiry) is enforced by
+      // the API, so direct client reads would bypass it.
+      match /seniors/{sid} {
+        allow read: if canSeeSenior(hid, sid);
+        allow write: if false;
+        match /{sub=**} {
+          allow read, write: if false;
+        }
+      }
+
+      // Tasks, absences and handovers reference elderly profiles and are filtered per viewer by the
+      // API (scope + consent + medical-detail redaction), so they are server-only.
+      match /tasks/{tid} {
+        allow read, write: if false;
+      }
+      match /absences/{id} {
+        allow read, write: if false;
+      }
+      match /handovers/{id} {
+        allow read, write: if false;
+      }
+
+      // Audit trail is read through the API only (it needs per-entry redaction).
+      match /auditLogs/{id} {
+        allow read, write: if false;
+      }
+
+      match /{other=**} {
+        allow read, write: if false;
+      }
+    }
+
+    // ---- organisations (Phase 5)
+    match /organisations/{oid} {
+      allow read: if signedIn()
+        && exists(/databases/$(database)/documents/organisations/$(oid)/members/$(request.auth.uid));
+      allow write: if false;
+      match /{sub=**} {
+        allow read, write: if false;
+      }
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   CareHub AI design tokens
+   Warm ivory canvas · deep emerald brand · sage · charcoal · champagne
+   ------------------------------------------------------------------ */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+
+  --color-ivory: #fbf8f2;
+  --color-ivory-deep: #f4efe5;
+  --color-surface: #ffffff;
+  --color-line: #e8e2d6;
+
+  --color-brand-50: #ecf5f0;
+  --color-brand-100: #d3e8dc;
+  --color-brand-200: #a8d1bb;
+  --color-brand-300: #74b394;
+  --color-brand-500: #1f7a55;
+  --color-brand-600: #17664a;
+  --color-brand-700: #0f513a;
+  --color-brand-800: #0b3f2e;
+  --color-brand-900: #082f22;
+
+  --color-sage-50: #f3f6f1;
+  --color-sage-100: #e4ebe0;
+  --color-sage-200: #cbd7c4;
+  --color-sage-400: #93a88a;
+  --color-sage-600: #536848;
+
+  --color-ink-900: #1f2421;
+  --color-ink-700: #3a403c;
+  --color-ink-500: #636a66;
+  --color-ink-300: #b5b9b6;
+
+  --color-champagne-50: #fbf6ec;
+  --color-champagne-100: #f6eedd;
+  --color-champagne-300: #e8d5ae;
+  --color-champagne-500: #c9a96a;
+  --color-champagne-700: #7a5f30;
+
+  --color-danger-50: #fef3f2;
+  --color-danger-600: #b42318;
+  --color-warning-50: #fffaeb;
+  --color-warning-600: #b54708;
+  --color-info-50: #eff6ff;
+  --color-info-600: #1d4ed8;
+
+  --shadow-soft: 0 1px 2px rgb(31 36 33 / 0.04), 0 4px 16px -4px rgb(31 36 33 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(31 36 33 / 0.05), 0 12px 32px -8px rgb(31 36 33 / 0.14);
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.25rem;
+
+  --animate-fade-up: fade-up 0.4s ease-out both;
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+:root {
+  color-scheme: light;
+  --app-font-scale: 1;
+}
+
+html {
+  font-size: calc(16px * var(--app-font-scale));
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+}
+
+.font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+
+:focus-visible {
+  outline: 3px solid var(--color-brand-300);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ------------------------------------------------------------------
+   Dark theme — toggled from the header / Settings (data-theme="dark").
+   Tokens are redefined so every utility class adapts automatically.
+   ------------------------------------------------------------------ */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ivory: #0e1311;
+  --color-ivory-deep: #151b18;
+  --color-surface: #18201c;
+  --color-line: #2b3530;
+
+  --color-ink-900: #edf1ee;
+  --color-ink-700: #c9d1cc;
+  --color-ink-500: #9aa59f;
+  --color-ink-300: #5a655f;
+
+  --color-brand-50: #13271e;
+  --color-brand-100: #183427;
+  --color-brand-200: #22503b;
+  --color-brand-300: #4fa57d;
+  --color-brand-500: #3a9d70;
+  --color-brand-600: #2c8862;
+  --color-brand-700: #237a56;
+  --color-brand-800: #1b6647;
+  --color-brand-900: #0f3d2b;
+
+  --color-sage-50: #141b17;
+  --color-sage-100: #1d2621;
+  --color-sage-200: #2b3731;
+  --color-sage-400: #75906d;
+  --color-sage-600: #aac0a1;
+
+  --color-champagne-50: #1d1912;
+  --color-champagne-100: #2a2416;
+  --color-champagne-300: #cdb27a;
+  --color-champagne-500: #c9a96a;
+  --color-champagne-700: #e4c98f;
+
+  --color-danger-50: #2b1513;
+  --color-danger-600: #f97066;
+  --color-warning-50: #2b1e0c;
+  --color-warning-600: #fdb022;
+  --color-info-50: #121c33;
+  --color-info-600: #84adff;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px -4px rgb(0 0 0 / 0.4);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 12px 32px -8px rgb(0 0 0 / 0.55);
+}
+/* Brand shades double as text colours; lift them for legibility on dark surfaces. */
+:root[data-theme="dark"] :is(.text-brand-600, .text-brand-700, .text-brand-800) { color: #74d1a3; }
+:root[data-theme="dark"] .text-brand-100 { color: #cfe9db; }
+:root[data-theme="dark"] .bg-champagne-300 { color: #1f2421; }
+:root[data-theme="dark"] .bg-danger-600 { background-color: #c4372c; }
+
+/* High-contrast accessibility mode (toggled in Settings) */
+:root[data-theme="dark"][data-contrast="high"] {
+  --color-ivory: #000000;
+  --color-surface: #0b0b0b;
+  --color-line: #9aa59f;
+  --color-ink-500: #ffffff;
+  --color-ink-700: #ffffff;
+  --color-ink-900: #ffffff;
+}
+:root[data-contrast="high"]:not([data-theme="dark"]) {
+  --color-ivory: #ffffff;
+  --color-ivory-deep: #f2f2f2;
+  --color-line: #1f2421;
+  --color-ink-500: #1f2421;
+  --color-ink-700: #000000;
+  --color-ink-900: #000000;
+  --color-brand-600: #063d2a;
+  --color-brand-700: #04301f;
+  --color-sage-50: #ffffff;
+  --color-sage-100: #eeeeee;
+}
+:root[data-contrast="high"] .card-surface { border-width: 2px; }
+
+:root[data-motion="reduce"] *, :root[data-motion="reduce"] *::before, :root[data-motion="reduce"] *::after {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

@@ -1,0 +1,12 @@
+# Python dependencies for the Vercel demo function (api/index.py).
+# Firebase Admin is intentionally omitted: the demo runs with the in-memory store and local auth.
+# Full backend requirements (incl. firebase-admin) live in backend/requirements.txt.
+fastapi>=0.163,<1
+starlette>=1.10,<2
+pydantic>=2.14,<3
+pydantic-settings>=2.16,<3
+PyJWT>=2.15,<3
+email-validator>=2.4,<3
+python-multipart>=0.0.33
+httpx>=0.28,<1
+tzdata
