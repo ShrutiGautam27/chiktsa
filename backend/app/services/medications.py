@@ -6,7 +6,7 @@ Safety invariants (enforced here, tested in tests/test_medications.py):
   * Verification is refused while any BLOCKING issue exists (unclear/missing fields, conflicting
     frequency, error-prone notation). Warnings must be explicitly acknowledged.
   * Editing any clinical field of an active medication returns it to `pending_verification`.
-  * CareHub never invents, infers or changes doses. An unrecorded dose is "unconfirmed", never
+  * Chiktsa never invents, infers or changes doses. An unrecorded dose is "unconfirmed", never
     "missed". There is no "take an extra dose" path.
 """
 from __future__ import annotations
@@ -140,7 +140,7 @@ def refill_status(med: dict, today: date) -> dict:
         "checklist": [
             f"Check the prescription is still valid with {who}.",
             f"Order about {need30} {unit}(s) — 30 days at the current schedule — from {where}.",
-            "Record the new stock in CareHub when it is collected.",
+            "Record the new stock in Chiktsa when it is collected.",
         ],
     }
 
@@ -451,6 +451,6 @@ def interaction_review(store: Store, actor: CurrentUser, hid: str, sid: str) -> 
             for k, ids in seen.items() if k and len(ids) > 1]
     return {"interactionCheck": "unavailable",
             "reason": "Drug-interaction screening requires a licensed, maintained clinical database, which is not yet "
-                      "connected. CareHub will not generate interaction claims itself. Ask a pharmacist or doctor to "
+                      "connected. Chiktsa will not generate interaction claims itself. Ask a pharmacist or doctor to "
                       "review the full medication list.",
             "duplicates": dups}

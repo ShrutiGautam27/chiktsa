@@ -42,7 +42,7 @@ function UploadCard({ hid, sid }: { hid: string; sid: string }) {
   };
   return (
     <Card>
-      <CardHeader><CardTitle>Add a document</CardTitle><CardDescription>PDF, PNG, JPEG or WebP up to 10 MB. Stored privately — opened only through CareHub after a permission check.</CardDescription></CardHeader>
+      <CardHeader><CardTitle>Add a document</CardTitle><CardDescription>PDF, PNG, JPEG or WebP up to 10 MB. Stored privately — opened only through Chiktsa after a permission check.</CardDescription></CardHeader>
       <CardContent className="space-y-4">
         <button type="button" onClick={() => input.current?.click()} onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)}
           onDrop={(e) => { e.preventDefault(); setDrag(false); pick(e.dataTransfer.files?.[0]); }}

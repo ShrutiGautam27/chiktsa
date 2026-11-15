@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploy CareHub AI to Google Cloud Run. Requires: gcloud CLI, an authenticated account,
+# Deploy Chiktsa to Google Cloud Run. Requires: gcloud CLI, an authenticated account,
 # a GCP project with Firestore (Native mode) and Firebase Auth enabled. See docs/DEPLOYMENT.md.
 set -euo pipefail
 

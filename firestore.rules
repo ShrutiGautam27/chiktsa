@@ -1,6 +1,6 @@
 rules_version = '2';
 
-// CareHub AI — Firestore security rules (defence in depth).
+// Chiktsa — Firestore security rules (defence in depth).
 //
 // All WRITES go through the FastAPI backend (Admin SDK bypasses rules), where requests are
 // authenticated, authorised, validated and audited. Clients therefore get NO direct write access.

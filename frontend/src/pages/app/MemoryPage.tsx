@@ -33,7 +33,7 @@ function Ask({ hid, senior }: { hid: string; senior: Senior }) {
           <Button type="submit" loading={ask.isPending} disabled={q.trim().length < 3}>Ask</Button>
         </form>
         <div className="mt-3 flex flex-wrap gap-2">{EXAMPLES.map((e) => <button key={e} onClick={() => submit(e)} className="rounded-full border border-line px-3 py-1 text-xs text-ink-700 hover:bg-sage-50">{e}</button>)}</div>
-        <p className="mt-3 text-xs text-ink-500">Answers come only from records you're allowed to see, with links to each source. If something isn't recorded, CareHub says so. Medical questions are referred to a professional.</p>
+        <p className="mt-3 text-xs text-ink-500">Answers come only from records you're allowed to see, with links to each source. If something isn't recorded, Chiktsa says so. Medical questions are referred to a professional.</p>
       </CardContent></Card>
       {history.map(({ q: question, r }, i) => (
         <Card key={i}><CardContent className="space-y-3 p-5">

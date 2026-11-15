@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     environment: Literal["development", "test", "demo", "production"] = "development"  # demo = public showcase, resets
-    app_name: str = "CareHub AI"
+    app_name: str = "Chiktsa"
 
     # Auth: "local" (dev/demo, email+password handled here) or "firebase" (production)
     auth_provider: Literal["local", "firebase"] = "local"
@@ -44,7 +44,7 @@ class Settings(BaseSettings):
     # Delivery channels — all optional; without credentials deliveries are recorded as not configured.
     email_provider: Literal["none", "resend", "sendgrid"] = "none"
     email_api_key: str | None = None
-    email_from: str = "CareHub AI <no-reply@carehub.local>"
+    email_from: str = "Chiktsa <no-reply@carehub.local>"
     app_base_url: str = "http://localhost:5391"
     push_enabled: bool = False                  # Firebase Cloud Messaging via firebase-admin
 

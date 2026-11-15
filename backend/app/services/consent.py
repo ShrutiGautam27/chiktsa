@@ -14,7 +14,7 @@ from .access import CATEGORIES, Access, active_members, consent_path, consent_st
 
 def _manager_check(store: Store, acc: Access, sid: str) -> None:
     """The senior themself decides. Owners/family admins may act on the senior's behalf ONLY when the
-    senior has no CareHub login of their own."""
+    senior has no Chiktsa login of their own."""
     acc.require(sid)
     if acc.m.role == Role.SENIOR and acc.m.linked_senior_id == sid:
         return

@@ -20,12 +20,12 @@ import { cn } from "@/lib/utils";
 
 // ------------------------------------------------------------------ Senior Mode labels (English / Hindi)
 const DICT = {
-  en: { talk: "Talk to CareHub", listening: "Listening…", typeInstead: "Or type your question", send: "Ask", yesRecord: "Yes, I took it", call: "Call", emergency: "Open emergency card",
+  en: { talk: "Talk to Chiktsa", listening: "Listening…", typeInstead: "Or type your question", send: "Ask", yesRecord: "Yes, I took it", call: "Call", emergency: "Open emergency card",
         howFeel: "How are you feeling today?", wantCall: "I'd like someone to call me", saveCheckin: "Save", thanks: "Thank you — saved.", myMeds: "My medicines today",
-        myAppts: "My appointments", whoSees: "Who can see my care", readAloud: "Read this page aloud", noScreen: "Voice-only mode", noScreenHint: "CareHub reads everything aloud and you can just speak." },
-  hi: { talk: "CareHub से बात करें", listening: "सुन रहे हैं…", typeInstead: "या अपना सवाल लिखें", send: "पूछें", yesRecord: "हाँ, मैंने ले ली", call: "फोन करें", emergency: "आपातकालीन कार्ड खोलें",
+        myAppts: "My appointments", whoSees: "Who can see my care", readAloud: "Read this page aloud", noScreen: "Voice-only mode", noScreenHint: "Chiktsa reads everything aloud and you can just speak." },
+  hi: { talk: "Chiktsa से बात करें", listening: "सुन रहे हैं…", typeInstead: "या अपना सवाल लिखें", send: "पूछें", yesRecord: "हाँ, मैंने ले ली", call: "फोन करें", emergency: "आपातकालीन कार्ड खोलें",
         howFeel: "आज आप कैसा महसूस कर रहे हैं?", wantCall: "मुझे कोई फोन करे", saveCheckin: "सहेजें", thanks: "धन्यवाद — सहेज लिया।", myMeds: "आज की मेरी दवाइयाँ",
-        myAppts: "मेरे अपॉइंटमेंट", whoSees: "मेरी देखभाल कौन देख सकता है", readAloud: "यह पेज पढ़कर सुनाएँ", noScreen: "केवल आवाज़ मोड", noScreenHint: "CareHub सब कुछ पढ़कर सुनाएगा और आप बस बोल सकते हैं।" },
+        myAppts: "मेरे अपॉइंटमेंट", whoSees: "मेरी देखभाल कौन देख सकता है", readAloud: "यह पेज पढ़कर सुनाएँ", noScreen: "केवल आवाज़ मोड", noScreenHint: "Chiktsa सब कुछ पढ़कर सुनाएगा और आप बस बोल सकते हैं।" },
 };
 export type SeniorKey = keyof (typeof DICT)["en"];
 export function useSeniorText() {

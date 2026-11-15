@@ -337,7 +337,7 @@ def _sim_offline(store: Store, acc: Access, p: dict) -> dict:
     return {"window": {"from": start, "to": end}, "dosesToRecordLater": doses, "appointments": appts, "tasksDue": tasks,
             "recommendations": [
                 "Print or save today's schedule before travelling to areas with poor connectivity.",
-                "Note dose times on paper and record them in CareHub when back online.",
+                "Note dose times on paper and record them in Chiktsa when back online.",
                 "In-app reminders can't be delivered while offline; agree a phone-call fallback with the family.",
             ],
             "limitations": "Offline caching and queued sync (Internet Independence Mode) are planned for Phase 5.",

@@ -106,7 +106,7 @@ export function LoginPage() {
   });
 
   return (
-    <AuthLayout title="Welcome back" subtitle={<>New to CareHub? <Link className="font-medium text-brand-700 hover:underline" to={`/signup${params.toString() ? `?${params}` : ""}`}>Create an account</Link></>}>
+    <AuthLayout title="Welcome back" subtitle={<>New to Chiktsa? <Link className="font-medium text-brand-700 hover:underline" to={`/signup${params.toString() ? `?${params}` : ""}`}>Create an account</Link></>}>
       <DemoAccounts />
       <form onSubmit={onSubmit} noValidate className="space-y-5">
         <FormError message={error} />

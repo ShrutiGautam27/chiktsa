@@ -1,8 +1,8 @@
-# CareHub AI
+# Chiktsa
 
 **One Platform. Every Generation. Connected Care.**
 
-CareHub AI is a multi-tenant elderly-care coordination platform that connects seniors, families,
+Chiktsa is a multi-tenant elderly-care coordination platform that connects seniors, families,
 caregivers and care organisations. Multiple households, multiple elderly profiles per household,
 per-profile permissions, and (in later phases) three intelligence engines: Care Continuity,
 Medication Safety and Family Coordination.
@@ -140,6 +140,6 @@ See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). In short: `PROJECT_ID=<id> bash de
 
 ## Safety principles
 
-CareHub coordinates care; it **never diagnoses, prescribes or changes medication**. AI features
+Chiktsa coordinates care; it **never diagnoses, prescribes or changes medication**. AI features
 (Phase 4+) produce proposals that require human confirmation, cite source records, and use only
 the minimal, authorised context for one senior in one household.

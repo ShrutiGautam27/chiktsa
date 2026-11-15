@@ -1,4 +1,4 @@
-# CareHub AI — REST API
+# Chiktsa — REST API
 
 Base path: `/api`. All authenticated endpoints require `Authorization: Bearer <token>`
 (a Firebase ID token in `firebase` mode, or a local access JWT in `local` mode).

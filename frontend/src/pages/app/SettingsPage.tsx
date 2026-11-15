@@ -132,7 +132,7 @@ export function SettingsPage() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle>Accessibility</CardTitle><CardDescription>Make CareHub comfortable to read and use.</CardDescription></CardHeader>
+          <CardHeader><CardTitle>Accessibility</CardTitle><CardDescription>Make Chiktsa comfortable to read and use.</CardDescription></CardHeader>
           <CardContent className="space-y-5">
             <fieldset>
               <legend className="mb-2 text-sm font-medium text-ink-700">Text size</legend>

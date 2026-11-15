@@ -52,7 +52,7 @@ export function FeaturesPage() {
 export function HowItWorksPage() {
   return (
     <>
-      <Hero eyebrow="How it works" title="From scattered care to a connected circle" body="CareHub is organised around households, elderly profiles and the people who care for them." />
+      <Hero eyebrow="How it works" title="From scattered care to a connected circle" body="Chiktsa is organised around households, elderly profiles and the people who care for them." />
       <section className="mx-auto max-w-4xl px-4 pb-16 sm:px-6">
         <ol className="relative space-y-8 border-l-2 border-sage-200 pl-8">
           {STEPS.map((s) => (
@@ -86,10 +86,10 @@ export function HowItWorksPage() {
 export function AboutPage() {
   return (
     <>
-      <Hero eyebrow="About" title="Care is a team effort. It deserves team tools." body="CareHub AI was created for families who share the care of the people who once cared for them." />
+      <Hero eyebrow="About" title="Care is a team effort. It deserves team tools." body="Chiktsa was created for families who share the care of the people who once cared for them." />
       <section className="mx-auto max-w-3xl space-y-6 px-4 pb-16 text-ink-700 sm:px-6">
         <p>Elderly care is rarely one person's job. It is a grandmother's medicines, a grandfather's appointments, a caregiver's shift change and a cousin abroad who wants to help. Most of the failures in that system are not dramatic — they are small gaps: nobody was assigned, a handover was missed, an instruction was never acknowledged.</p>
-        <p>CareHub AI is coordination infrastructure for that reality. It keeps every elderly person's records separate and senior-controlled, connects every household that shares their care, and uses AI carefully — to surface gaps and prepare summaries, never to diagnose or change a prescription.</p>
+        <p>Chiktsa is coordination infrastructure for that reality. It keeps every elderly person's records separate and senior-controlled, connects every household that shares their care, and uses AI carefully — to surface gaps and prepare summaries, never to diagnose or change a prescription.</p>
       </section>
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -111,13 +111,13 @@ const CONTACT_EMAIL = (import.meta.env.VITE_CONTACT_EMAIL as string | undefined)
 export function ContactPage() {
   return (
     <>
-      <Hero eyebrow="Contact" title="We'd love to hear from you" body="Questions about CareHub for your family or your care organisation?" />
+      <Hero eyebrow="Contact" title="We'd love to hear from you" body="Questions about Chiktsa for your family or your care organisation?" />
       <section className="mx-auto max-w-xl px-4 pb-20 sm:px-6">
         <div className="rounded-3xl border border-line bg-surface p-8 text-center shadow-soft">
           <Mail className="mx-auto size-8 text-brand-600" />
           {CONTACT_EMAIL ? (
             <>
-              <p className="mt-4 text-ink-700">Email the CareHub team and we'll reply within two working days.</p>
+              <p className="mt-4 text-ink-700">Email the Chiktsa team and we'll reply within two working days.</p>
               <Button asChild className="mt-6"><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></Button>
             </>
           ) : (

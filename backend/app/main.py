@@ -1,4 +1,4 @@
-"""CareHub AI API — application factory."""
+"""Chiktsa API — application factory."""
 import logging
 import threading
 from contextlib import asynccontextmanager
@@ -58,7 +58,7 @@ def create_app() -> FastAPI:
     settings.validate_for_production()
     configure_logging()
 
-    app = FastAPI(title="CareHub AI API", version="0.3.0", docs_url="/api/docs", openapi_url="/api/openapi.json",
+    app = FastAPI(title="Chiktsa API", version="0.3.0", docs_url="/api/docs", openapi_url="/api/openapi.json",
                   redoc_url=None, lifespan=lifespan)
     app.add_middleware(RateLimitMiddleware)
     app.add_middleware(RequestLogMiddleware)

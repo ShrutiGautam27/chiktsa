@@ -112,7 +112,7 @@ export function DashboardPage() {
   if (!households.data?.length) {
     return (
       <>
-        <PageHeader eyebrow={greeting()} title={`Welcome to CareHub, ${name}`} description="Let's set up your first care space." />
+        <PageHeader eyebrow={greeting()} title={`Welcome to Chiktsa, ${name}`} description="Let's set up your first care space." />
         <PendingInvitationsBanner />
         <EmptyState icon={Home} title="Create your first household"
           description="A household is a private, isolated care space. Add each elderly person as their own profile, then invite your care circle."

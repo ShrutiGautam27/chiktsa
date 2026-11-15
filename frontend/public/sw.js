@@ -1,4 +1,4 @@
-// CareHub AI service worker — keeps the APP SHELL available offline.
+// Chiktsa service worker — keeps the APP SHELL available offline.
 // It never caches API responses (care data): those stay under the app's explicit, opt-in
 // essentials cache so a shared device doesn't silently retain medical information.
 const CACHE = "carehub-shell-v1";

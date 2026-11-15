@@ -1,4 +1,4 @@
-# CareHub AI web — static SPA served by nginx on Cloud Run.
+# Chiktsa web — static SPA served by nginx on Cloud Run.
 # nginx also reverse-proxies /api to the API service so auth cookies stay first-party (same origin).
 FROM node:22-alpine AS build
 WORKDIR /app

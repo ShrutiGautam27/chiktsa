@@ -1,4 +1,4 @@
-# CareHub AI — Implementation Checklist
+# Chiktsa — Implementation Checklist
 
 Legend: ✅ implemented & tested · 🟡 built, needs credentials/external service to exercise · ⬜ not started
 
@@ -111,7 +111,7 @@ Tests: `backend/tests/test_ai.py` (20), frontend `ai.test.tsx` (2). Full API sui
 | Feature | Status | Notes |
 |---|---|---|
 | AI service layer: Gemini REST client (structured JSON via `responseSchema`), schema validation, fallback | ✅ / 🟡 | Client tested against a mocked API; live use needs `GEMINI_API_KEY` |
-| Household opt-in for cloud AI (offline by default), audited | ✅ | No record leaves CareHub until an admin enables Gemini |
+| Household opt-in for cloud AI (offline by default), audited | ✅ | No record leaves Chiktsa until an admin enables Gemini |
 | Guardrails: no diagnosis / prescribing / dose changes / extra doses; clinical escalation; unsafe output replaced | ✅ | Enforced in prompt AND on output |
 | Minimal authorised context (one senior, scope + consent aware) | ✅ | Tested: other profiles never reach the prompt |
 | AI usage audit (who/which workflow/engine — never content) + per-user rate limit | ✅ | |
@@ -135,7 +135,7 @@ Tests: `backend/tests/test_phase5.py` (14), frontend `phase5.test.tsx` (4). Full
 | Emergency Care Snapshot (senior-approved, edits need re-approval, expiring/revocable/view-logged share link, printable) | ✅ | |
 | Personal Wishes & Care Preferences | ✅ | Senior or administrator edits |
 | Wellness Check-ins (voluntary, self-reported, "please call me" notifies family, trend) | ✅ | Never interpreted clinically |
-| Organisations (create, staff, connect households by code, place caregivers on specific profiles, multi-household dashboard, disconnect revokes access) | ✅ | Staff must already have a CareHub account |
+| Organisations (create, staff, connect households by code, place caregivers on specific profiles, multi-household dashboard, disconnect revokes access) | ✅ | Staff must already have a Chiktsa account |
 | Reports & Analytics (dose records, task throughput, reminder response, appointments, wellness) + CSV export | ✅ | Coordination metrics only |
 | Calendar: .ics download + "Add to Google Calendar" link | ✅ / 🟡 | Two-way Google Calendar sync needs an OAuth client |
 | Hindi labels in Senior Mode | ✅ | |

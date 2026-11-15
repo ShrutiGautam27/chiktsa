@@ -119,7 +119,7 @@ function AbsenceDialog({ hid, open, onOpenChange }: { hid: string; open: boolean
   const [reason, setReason] = useState("");
   const valid = start && end && new Date(end) > new Date(start) && new Date(end) > new Date();
   return (
-    <Dialog open={open} onOpenChange={onOpenChange} title="I'm unavailable" description="CareHub finds your assigned responsibilities in this period, asks authorised backups to cover them and lets the family know.">
+    <Dialog open={open} onOpenChange={onOpenChange} title="I'm unavailable" description="Chiktsa finds your assigned responsibilities in this period, asks authorised backups to cover them and lets the family know.">
       <div className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="From"><Input type="datetime-local" value={start} onChange={(e) => setStart(e.target.value)} /></Field>

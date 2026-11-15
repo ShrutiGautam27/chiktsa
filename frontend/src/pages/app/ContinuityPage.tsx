@@ -22,7 +22,7 @@ export function GapList({ hid, sid, limit }: { hid: string; sid?: string; limit?
   if (gaps.isLoading) return <div className="space-y-2">{[0, 1, 2].map((i) => <Skeleton key={i} className="h-16" />)}</div>;
   if (gaps.isError) return <ErrorState error={gaps.error} onRetry={() => gaps.refetch()} />;
   const list = (gaps.data?.gaps ?? []).slice(0, limit);
-  if (!list.length) return <EmptyState icon={CheckCircle2} title="No care gaps found" description="Every upcoming responsibility has an owner. CareHub re-checks whenever care records change." />;
+  if (!list.length) return <EmptyState icon={CheckCircle2} title="No care gaps found" description="Every upcoming responsibility has an owner. Chiktsa re-checks whenever care records change." />;
   return (
     <ul className="space-y-2">
       {list.map((g: Gap) => (

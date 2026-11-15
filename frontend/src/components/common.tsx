@@ -16,7 +16,7 @@ export function Logo({ className, light }: { className?: string; light?: boolean
         </svg>
       </span>
       <span className={cn("font-display text-xl font-medium", light ? "text-white" : "text-ink-900")}>
-        {BRAND.name} <span className={light ? "text-champagne-300" : "text-brand-600"}>{BRAND.suffix}</span>
+        {BRAND.name}{BRAND.suffix && <> <span className={light ? "text-champagne-300" : "text-brand-600"}>{BRAND.suffix}</span></>}
       </span>
     </Link>
   );

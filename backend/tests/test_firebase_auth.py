@@ -52,7 +52,7 @@ def test_firebase_id_token_provisions_profile(client, store):
     assert r.json()["user"]["displayName"] == "Asha FB"
     uid = r.json()["user"]["uid"]
     assert store.get(f"users/{uid}") is not None
-    assert store.get(f"authCredentials/{uid}") is None  # no passwords stored by CareHub in Firebase mode
+    assert store.get(f"authCredentials/{uid}") is None  # no passwords stored by Chiktsa in Firebase mode
 
 
 def test_firebase_mode_rejects_bad_tokens_and_disables_local_auth(client):

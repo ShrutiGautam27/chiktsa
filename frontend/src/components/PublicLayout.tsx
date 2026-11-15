@@ -66,7 +66,7 @@ export function PublicLayout() {
             <Logo />
             <p className="mt-3 max-w-sm text-sm text-ink-500">One Platform. Every Generation. Connected Care.</p>
             <p className="mt-4 max-w-md text-xs text-ink-500">
-              CareHub AI supports care coordination. It does not diagnose, prescribe or replace advice from a qualified healthcare professional.
+              Chiktsa supports care coordination. It does not diagnose, prescribe or replace advice from a qualified healthcare professional.
             </p>
           </div>
           <div>

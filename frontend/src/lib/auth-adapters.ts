@@ -1,6 +1,6 @@
 /**
  * Authentication adapters.
- *  - LocalAuthAdapter: development/demo. Email+password against the CareHub API; access token kept
+ *  - LocalAuthAdapter: development/demo. Email+password against the Chiktsa API; access token kept
  *    in memory only, refresh token in an HttpOnly cookie the page cannot read.
  *  - FirebaseAuthAdapter: production. Firebase JS SDK; the Firebase ID token is sent to the API.
  *    Activated automatically when VITE_FIREBASE_API_KEY etc. are configured AND the API reports

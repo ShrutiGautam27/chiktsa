@@ -85,7 +85,7 @@ def add_staff(store: Store, actor: CurrentUser, oid: str, email: str, role: str)
         raise ValidationFailed("Unknown organisation role.")
     u = find_by_email(store, email)
     if not u:
-        raise NotFound("No CareHub account uses that email yet. Ask them to sign up first.")
+        raise NotFound("No Chiktsa account uses that email yet. Ask them to sign up first.")
     store.set(f"organisations/{oid}/members/{u.id}", {"uid": u.id, "role": role, "status": "active", "displayName": u.data["displayName"],
                                                       "email": u.data["email"], "joinedAt": now(), "addedBy": actor.uid})
     o = store.get(f"organisations/{oid}").data

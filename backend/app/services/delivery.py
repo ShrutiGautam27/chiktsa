@@ -1,6 +1,6 @@
 """Delivery channels for notifications: in-app (always), email (Resend / SendGrid), push (FCM).
 
-Without credentials a channel records `skipped_not_configured` — CareHub never reports a delivery
+Without credentials a channel records `skipped_not_configured` — Chiktsa never reports a delivery
 that did not happen. Message bodies are already data-minimised by the caller (no medicine names or
 clinical details), because email and push leave our infrastructure.
 """
@@ -26,7 +26,7 @@ def send_email(to: str, subject: str, body: str, link: str) -> dict[str, Any]:
     if s.email_provider == "none" or not s.email_api_key:
         return _record("email", "skipped_not_configured")
     url = s.app_base_url.rstrip("/") + link
-    text = f"{body}\n\nOpen CareHub: {url}\n\nYou can change notification settings in CareHub → Settings."
+    text = f"{body}\n\nOpen Chiktsa: {url}\n\nYou can change notification settings in Chiktsa → Settings."
     try:
         if s.email_provider == "resend":
             r = httpx.post("https://api.resend.com/emails", timeout=10,

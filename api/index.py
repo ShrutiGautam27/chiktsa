@@ -1,4 +1,4 @@
-"""Vercel serverless entry point for the CareHub AI API (public DEMO deployment).
+"""Vercel serverless entry point for the Chiktsa API (public DEMO deployment).
 
 Vercel runs this file as a Python function and routes /api/* here (see vercel.json). The demo uses
 the in-memory store seeded with sample households, so data resets whenever the instance restarts.

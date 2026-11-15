@@ -57,7 +57,7 @@ class FirestoreStore:
 
         ref = self._db.document(path)
         try:
-            ref.update(data)  # all CareHub field names are plain identifiers (no dots)
+            ref.update(data)  # all Chiktsa field names are plain identifiers (no dots)
         except GNotFound as e:
             raise KeyError(path) from e
         snap = ref.get()

@@ -52,7 +52,7 @@ export async function request<T>(method: string, path: string, body?: unknown, r
       credentials: "same-origin",
     });
   } catch {
-    throw new ApiError(0, "network_error", "Can't reach CareHub right now. Check your connection and try again.");
+    throw new ApiError(0, "network_error", "Can't reach Chiktsa right now. Check your connection and try again.");
   }
 
   const data = await parse(res);
@@ -86,7 +86,7 @@ async function upload<T>(path: string, form: FormData): Promise<T> {
   try {
     res = await fetch(BASE + path, { method: "POST", body: form, headers: token ? { Authorization: `Bearer ${token}` } : {}, credentials: "same-origin" });
   } catch {
-    throw new ApiError(0, "network_error", "Can't reach CareHub right now. Check your connection and try again.");
+    throw new ApiError(0, "network_error", "Can't reach Chiktsa right now. Check your connection and try again.");
   }
   const data = await parse(res);
   if (res.ok) return data as T;

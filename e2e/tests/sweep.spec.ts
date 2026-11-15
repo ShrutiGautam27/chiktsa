@@ -54,7 +54,7 @@ test("senior mode works", async ({ page }) => {
     await expectHealthy(page, `senior ${path}`);
   }
   await page.goto("/app");
-  await expect(page.getByRole("button", { name: /talk to carehub|carehub से बात/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /talk to chiktsa|chiktsa से बात/i })).toBeVisible();
   expect(problems).toEqual([]);
 });
 

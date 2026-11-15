@@ -71,12 +71,12 @@ export const STEPS = [
   { n: "01", title: "Create a household", body: "Start a private care space. You can create or join as many households as your family needs." },
   { n: "02", title: "Add each elderly person", body: "Every senior gets an independent profile — their own records, preferences, consent and history." },
   { n: "03", title: "Invite the care circle", body: "Invite family and caregivers by email with a role and access to specific profiles, optionally time-limited." },
-  { n: "04", title: "Coordinate with intelligence", body: "CareHub surfaces gaps, handovers and workload so responsibilities never fall through the cracks." },
+  { n: "04", title: "Coordinate with intelligence", body: "Chiktsa surfaces gaps, handovers and workload so responsibilities never fall through the cracks." },
 ];
 
 export const PRINCIPLES = [
   { title: "Senior-controlled", body: "Seniors decide who sees what, and can revoke access at any time." },
   { title: "Isolated by design", body: "Every household is a separate tenant. Every request is authorised on the server." },
   { title: "Verified before active", body: "AI proposes; people confirm. Nothing clinical is activated without human verification." },
-  { title: "Never diagnoses", body: "CareHub coordinates care. Clinical questions are escalated to qualified professionals." },
+  { title: "Never diagnoses", body: "Chiktsa coordinates care. Clinical questions are escalated to qualified professionals." },
 ];

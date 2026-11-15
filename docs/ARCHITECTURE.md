@@ -1,4 +1,4 @@
-# CareHub AI — Technical Architecture
+# Chiktsa — Technical Architecture
 
 > One Platform. Every Generation. Connected Care.
 

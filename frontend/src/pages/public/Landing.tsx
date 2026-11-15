@@ -55,7 +55,7 @@ export function Landing() {
             One platform.<br />Every generation.<br /><span className="text-brand-700">Connected care.</span>
           </h1>
           <p className="mt-5 max-w-xl text-lg text-ink-500">
-            CareHub AI brings seniors, families and caregivers into one secure space — and quietly spots the care
+            Chiktsa brings seniors, families and caregivers into one secure space — and quietly spots the care
             responsibilities nobody has picked up yet.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">

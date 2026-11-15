@@ -1,4 +1,4 @@
-# Deploying CareHub AI to Google Cloud Run
+# Deploying Chiktsa to Google Cloud Run
 
 > Status: deployment configuration is written but has **not been executed** — no GCP project or
 > credentials were provided. Follow these steps once you have them.

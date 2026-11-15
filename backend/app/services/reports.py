@@ -84,7 +84,7 @@ def report_csv(store: Store, actor: CurrentUser, hid: str, days: int = 30) -> st
     r = household_report(store, actor, hid, days)
     out = io.StringIO()
     w = csv.writer(out)
-    w.writerow(["CareHub AI coordination report", f"last {days} days", r["generatedAt"].isoformat()])
+    w.writerow(["Chiktsa coordination report", f"last {days} days", r["generatedAt"].isoformat()])
     w.writerow([])
     w.writerow(["Profile", "Doses recorded taken", "Skipped", "Not recorded", "Recorded rate", "Check-ins", "Average mood (1-5, self-reported)"])
     for s in r["seniors"]:
@@ -117,7 +117,7 @@ def appointment_ics(store: Store, actor: CurrentUser, hid: str, sid: str, aid: s
     end = start + timedelta(minutes=x.get("durationMinutes") or 30)
     f = "%Y%m%dT%H%M%SZ"
     body = "\r\n".join([
-        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//CareHub AI//EN", "CALSCALE:GREGORIAN", "BEGIN:VEVENT",
+        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Chiktsa//EN", "CALSCALE:GREGORIAN", "BEGIN:VEVENT",
         f"UID:{aid}@carehub", f"DTSTAMP:{now().strftime(f)}", f"DTSTART:{start.strftime(f)}", f"DTEND:{end.strftime(f)}",
         f"SUMMARY:{_ics_escape(x['title'] + ' — ' + (s.get('preferredName') or s['fullName']))}",
         f"LOCATION:{_ics_escape(x.get('location') or '')}",

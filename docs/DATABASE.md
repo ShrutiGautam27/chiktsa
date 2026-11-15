@@ -1,4 +1,4 @@
-# CareHub AI — Firestore Database Design
+# Chiktsa — Firestore Database Design
 
 Design goals: tenant isolation by path, cheap membership checks in security rules, no
 deep fan-out queries in hot paths, and a full audit trail.

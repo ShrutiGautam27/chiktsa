@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import re
 
-SYSTEM_RULES = """You are CareHub AI, a care-COORDINATION assistant for families of elderly people.
+SYSTEM_RULES = """You are Chiktsa, a care-COORDINATION assistant for families of elderly people.
 Strict rules:
 1. Use ONLY the records provided in the context. Never invent names, dates, medicines, doses or events.
 2. If the records do not contain the answer, say so plainly and set the insufficient flag.
@@ -21,7 +21,7 @@ Strict rules:
 6. Clearly separate verified record facts from your own organisational suggestions.
 7. Be concise, warm and practical. Plain language suitable for family members."""
 
-CLINICAL_ESCALATION = ("This is a medical question. Please ask a doctor, nurse or pharmacist — CareHub can help you "
+CLINICAL_ESCALATION = ("This is a medical question. Please ask a doctor, nurse or pharmacist — Chiktsa can help you "
                        "prepare for that conversation but can't give medical advice.")
 
 _UNSAFE = re.compile(

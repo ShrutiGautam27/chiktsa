@@ -1,4 +1,4 @@
-"""Starts an ISOLATED CareHub API for end-to-end tests: fresh store, demo seed, port 8090."""
+"""Starts an ISOLATED Chiktsa API for end-to-end tests: fresh store, demo seed, port 8090."""
 import os
 import pathlib
 import subprocess

@@ -50,7 +50,7 @@ export function SeniorOverview({ hid, sid }: { hid: string; sid: string }) {
               {s.age != null && <Badge tone="neutral">{s.age} years</Badge>}
               <Badge tone="neutral"><Globe className="size-3" /> {s.primaryLanguage === "hi" ? "Hindi" : "English"}</Badge>
               {s.timezone && <Badge tone="neutral">{s.timezone}</Badge>}
-              {selfMember && <Badge tone="brand">Uses CareHub</Badge>}
+              {selfMember && <Badge tone="brand">Uses Chiktsa</Badge>}
             </div>
           </div>
           {can("seniors.manage") && (

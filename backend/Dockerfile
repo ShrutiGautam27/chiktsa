@@ -1,4 +1,4 @@
-# CareHub AI API — Cloud Run image
+# Chiktsa API — Cloud Run image
 FROM python:3.11-slim AS base
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
